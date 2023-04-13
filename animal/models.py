@@ -97,4 +97,5 @@ class Foto(models.Model):
 class FormContato(forms.ModelForm):
     class Meta:
         model = Contato
-        exclude = ('mostrar',)
+        exclude = ('mostrar','categoria',)
+

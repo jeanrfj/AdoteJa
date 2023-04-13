@@ -8,7 +8,7 @@ urlpatterns = [
     # path('perfil/', views.atualizarCadastro, name='login'),
     path('logout/', views.logout, name='logout'),
     path('cadastro/', views.cadastro, name='cadastro'),
-    path('dashboard/', views.dashboard, name='dashboard'),
+    #path('dashboard/', views.dashboard, name='dashboard'),
     path('dashboard/animais/', views.dashboardAnimais, name='dashboard-animais'),
     path('dashboard/interessados/', views.dashboardInteressados,
          name='dashboard-interessados'),

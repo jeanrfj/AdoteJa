@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.core.validators import validate_email
 from django.contrib.auth.decorators import login_required
-from .models import FormContato, Contato
+from .models import FormContato, Contato,FormCadastroAnimal
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -25,7 +25,7 @@ def login(request):
     else:
         auth.login(request, user)
         messages.success(request, 'Você fez login com sucesso.')
-        return redirect('dashboard')
+        return render(request,'home.html')
 
 
 def logout(request):
@@ -135,7 +135,7 @@ def atualizarCadastro(request):
     return redirect('login')
 
 
-@login_required(redirect_field_name='login')
+""" @login_required(redirect_field_name='login')
 def dashboard(request):
     if request.method != 'POST':
         form = FormContato()
@@ -159,32 +159,32 @@ def dashboard(request):
     messages.success(
         request, f'Contato {request.POST.get("nome")} salvo com sucesso!')
     return redirect('dashboard')
-
+ """
 
 @login_required(redirect_field_name='login')
 def dashboardAnimais(request):
     if request.method != 'POST':
-        form = FormContato()
+        form = FormCadastroAnimal()
         return render(request, 'dashboard.html', {'form': form})
 
-    form = FormContato(request.POST, request.FILES)
+    form = FormCadastroAnimal(request.POST, request.FILES)
 
     if not form.is_valid():
         messages.error(request, 'Erro ao enviar formulário.')
-        form = FormContato(request.POST)
+        form = FormCadastroAnimal(request.POST)
         return render(request, 'dashboard.html', {'form': form})
 
     descricao = request.POST.get('descricao')
 
     if len(descricao) < 5:
         messages.error(request, 'Descrição precisa ter mais que 5 caracteres.')
-        form = FormContato(request.POST)
+        form = FormCadastroAnimal(request.POST)
         return render(request, 'dashboard.html', {'form': form})
 
     form.save()
     messages.success(
         request, f'Contato {request.POST.get("nome")} salvo com sucesso!')
-    return redirect('dashboard')
+    return render(request,'home.html')
 
 
 def dashboardInteressados(request):

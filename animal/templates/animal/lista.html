@@ -10,7 +10,7 @@
             <div class="card">
                 {%if animal.imagem %} <!--VERRIFICA SE TEM IMAGEM-->
                 <!--#TODO:DEFINIR COMO VOU ACESSAR A OUTRA CLASSE COM O RESTO DAS FOTOS-->
-                <a href="{{ animal.slug }}">
+                <a href="interesse/{{ animal.id }}/{{ animal.nome_animal }}">
                     <img class="card-img-top" src="{{animal.imagem.url}}" alt="{{ animal.nome_animal }}">
                 </a>
                 {% endif %}
@@ -22,7 +22,8 @@
                     </div>
                 </div>
                 <div class="card-footer bg-transparent border-top-light-custom text-center">
-                    <a href="interesse/" class="btn btn-primary btn-sm m-1 btn-block">
+                    <a href="interesse/{{ animal.id }}/{{ animal.nome_animal }}"
+                        class="btn btn-primary btn-sm m-1 btn-block">
                         <i class="fa fa-heart" aria-hidden="true"></i>
                         Adotar
                     </a>

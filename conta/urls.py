@@ -10,7 +10,7 @@ urlpatterns = [
     path('cadastro/', views.cadastro, name='cadastro'),
     # path('dashboard/', views.dashboard, name='dashboard'),
     path('dashboard/animais/', views.dashboardAnimais, name='dashboard-animais'),
-    path('dashboard/animais/cadastrar', views.dashboardAnimaisCadastrar,
+    path('dashboard/animais/cadastrar/', views.dashboardAnimaisCadastrar,
          name='dashboard-animais-cadastrar'),
     path('dashboard/animais/deletar', views.dashboardAnimaisCadastrar,
          name='dashboard-animais-deletar'),

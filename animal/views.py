@@ -38,26 +38,58 @@ class Finalizar(View):
         return HttpResponse('Finalizar')
 
 
-def registrarInteresse(request):
+def cadastroDeInteresse(request, nome, id):
     if request.method != 'POST':
-        form = FormContato()
-        return render(request, 'dashboard.html', {'form': form})
+        return render(request, 'interesse.html', {'nome': nome, 'id': id})
 
-    form = FormContato(request.POST, request.FILES)
 
-    if not form.is_valid():
-        messages.error(request, 'Erro ao enviar formulário.')
-        form = FormContato(request.POST)
-        return render(request, 'dashboard.html', {'form': form})
+def registrarInteresse(request, nome):
+    if request.method == 'POST':
+        # acao = 'Cadastro Con'
+        messages.success(
+            request, f'Interesse em {nome} registrado com sucesso!')
+        return render(request, 'interesse-registrado.html')
 
-    descricao = request.POST.get('descricao')
+    # form = FormContato(request.POST, request.FILES)
 
-    if len(descricao) < 5:
-        messages.error(request, 'Descrição precisa ter mais que 5 caracteres.')
-        form = FormContato(request.POST)
-        return render(request, 'dashboard.html', {'form': form})
+    # if not form.is_valid():
+    #     messages.error(request, 'Erro ao enviar formulário.')
+    #     form = FormContato(request.POST)
+    #     return render(request, 'dashboard.html', {'form': form})
 
-    form.save()
-    messages.success(
-        request, f'Contato {request.POST.get("nome")} salvo com sucesso!')
-    return redirect('dashboard')
+    # descricao = request.POST.get('descricao')
+
+    # if len(descricao) < 5:
+    #     messages.error(request, 'Descrição precisa ter mais que 5 caracteres.')
+    #     form = FormContato(request.POST)
+    #     return render(request, 'dashboard.html', {'form': form})
+
+    # form.save()
+    # messages.success(
+    #     request, f'Contato {request.POST.get("nome")} salvo com sucesso!')
+    # return redirect('dashboard')
+
+
+# def registrarInteresse(request):
+#     if request.method != 'POST':
+#         form = FormContato()
+#         return render(request, 'interesse.html', {'form': form})
+
+#     form = FormContato(request.POST, request.FILES)
+
+#     if not form.is_valid():
+#         messages.error(request, 'Erro ao enviar formulário.')
+#         form = FormContato(request.POST)
+#         return render(request, 'dashboard.html', {'form': form})
+
+#     descricao = request.POST.get('descricao')
+
+#     if len(descricao) < 5:
+#         messages.error(request, 'Descrição precisa ter mais que 5 caracteres.')
+#         form = FormContato(request.POST)
+#         return render(request, 'dashboard.html', {'form': form})
+
+#     form.save()
+#     messages.success(
+#         request, f'Contato {request.POST.get("nome")} salvo com sucesso!')
+#     return redirect('dashboard')

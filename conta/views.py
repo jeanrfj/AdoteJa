@@ -177,30 +177,20 @@ def dashboardAnimais(request):
 
 @login_required(redirect_field_name='login')
 def dashboardAnimaisCadastrar(request):
-    if request.method != 'POST':
+    if request.method == 'POST':
+        form = FormCadastroAnimal(request.POST,request.FILES)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Animal cadastrado com sucesso.')
+            return redirect('animal:lista')
+        else:
+            messages.error(request,'erro ao cadastrar animal !')
+    else:
         form = FormCadastroAnimal()
-        return render(request, 'cadastrar-animal.html', {'form': form})
-
-    form = FormCadastroAnimal(request.POST, request.FILES)
-
-    if not form.is_valid():
-        messages.error(request, 'Erro ao enviar formulário.')
-        form = FormCadastroAnimal(request.POST)
-        return render(request, 'cadastrar-animal.html', {'form': form})
-
-    descricao = request.POST.get('descricao')
-
-    if len(descricao) < 5:
-        messages.error(request, 'Descrição precisa ter mais que 5 caracteres.')
-        form = FormCadastroAnimal(request.POST)
-        return render(request, 'cadastrar-animal.html', {'form': form})
-
-    form.save()
-    messages.success(
-        request, f'Contato {request.POST.get("nome")} salvo com sucesso!')
-    return render(request, 'home.html')
-
-
+    return render(request, 'cadastrar-animal.html',{'form':form})
+            
+    
 def dashboardInteressados(request):
     contatos = Contato.objects.order_by('-id').filter(
         mostrar=True

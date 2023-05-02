@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {%block titulo%}Dashboard de {{user}} | {%endblock%}
 
 {% block conteudo %}
@@ -10,10 +10,10 @@
 </p>
 
 <div class="container">
-    <form action="{%url 'dashboard-animais'%}" method="POST" enctype="multipart/form-data">
+    <form action="{%url 'cadastro'%}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <table class="table">
-            {{ form }}
+            {{ form|crispy }}
             <tr>
                 <td colspan="2">
                     <button type="submit" class="btn btn-primary">Enviar</button>

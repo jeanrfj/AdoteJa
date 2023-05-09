@@ -4,7 +4,7 @@ from . import views
 app_name = 'animal'
 
 urlpatterns = [
-    path('', views.ListaAnimal.as_view(), name='lista'),
+    path('', views.ListaAnimal, name='lista'),
     path('<slug>', views.DetalheAnimal.as_view(), name='detalheanimal'),
     path('interesse/<int:id>/<str:nome>/',
          views.cadastroDeInteresse, name='interesse'),

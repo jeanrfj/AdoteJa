@@ -1,4 +1,5 @@
 from django.views.generic.list import ListView
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.views import View
 from django.http import HttpResponse
 from .models import FormContato
@@ -7,12 +8,18 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 
 
-class ListaAnimal(ListView):
+""" class ListaAnimal(ListView):
     model = models.Animal
     template_name = 'animal/lista.html'
     context_object_name = 'animais'
-
-
+ """
+def ListaAnimal(request):
+    animais_pag = models.Animal.objects.all()
+    animais_paginator = Paginator(animais_pag,5)
+    page_num = request.GET.get('page')
+    page = animais_paginator.get_page(page_num)
+    
+    return render(request, 'animal/lista.html',{'page':page})
 class DetalheAnimal(View):
     def get(self, *args, **kwargs):
         return HttpResponse('Detalhe')

@@ -6,7 +6,7 @@
     <div class="col-lg-12">
         <div class="card-columns">
 
-            {%for animal in animais%}
+            {%for animal in page.object_list%}
             <div class="card">
                 {%if animal.imagem %} <!--VERRIFICA SE TEM IMAGEM-->
                 <!--#TODO:DEFINIR COMO VOU ACESSAR A OUTRA CLASSE COM O RESTO DAS FOTOS-->
@@ -18,6 +18,13 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ animal.nome_animal }}</h5>
                     <p class="card-text">{{ animal.descricao }}</p>
+                    {% if animal.sexo == 'M' %}
+                        <p class="card-text">Sexo: Macho</p>
+                    {% elif animal.sexo == 'F' %}
+                        <p class="card-text">Sexo: Femea</p>
+                    {% elif animal.sexo == '' %}
+                        <p class="card-text">O sexo deste animal não foi especificado</p>
+                    {% endif %}
                     <div class="container product-price-block text-center">
                     </div>
                 </div>
@@ -34,6 +41,38 @@
 
         </div>
     </div>
+        <div>
+
+            <nav aria-label="...">
+                <ul class="pagination">
+                {% if page.has_previous %} 
+                  <li class="page-item">
+                    <a href="{% url 'animal:lista' %}?page={{ page.previous_page_number }}" class="page-link p-3 mb-2 bg-dark text-white">Previous</a>
+                  </li>
+                {%endif%}
+                  <li class="page-item"><a class="page-link p-3 mb-2 bg-dark text-white" href="#">{{page.number}}</a></li>
+                
+                {% if page.has_next %}
+                  <li class="page-item">
+                    <a href="{% url 'animal:lista' %}?page={{ page.next_page_number }}" class="page-link p-3 mb-2 bg-dark text-white" href="#">Next</a>
+                  </li>
+                {%endif%}
+                </ul>
+              </nav>
+
+
+            {% comment %} {% if page.has_previous %}
+                <a href="{% url 'animal:lista' %}?page={{ page.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            <span class="current-page">{{ page.number }}</span>
+
+            {% if page.has_next %}
+                <a href="{% url 'animal:lista' %}?page={{ page.next_page_number }}">Próxima</a>
+                
+            {% endif %}
+ {% endcomment %}
+        </div>
 </div>
 
 {%endblock%}

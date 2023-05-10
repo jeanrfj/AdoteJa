@@ -6,6 +6,7 @@ from .models import FormContato
 from . import models
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.db.models import Q
 
 
 """ class ListaAnimal(ListView):
@@ -13,12 +14,28 @@ from django.shortcuts import render, redirect
     template_name = 'animal/lista.html'
     context_object_name = 'animais'
  """
+
 def ListaAnimal(request):
-    animais_pag = models.Animal.objects.all()
+    obj = request.GET.get('obj')
+
+    if obj:
+        animais_pag = models.Animal.objects.filter(
+            Q(nome_animal__icontains=obj) | 
+            Q(descricao__icontains=obj) |
+            Q(especie__icontains=obj) |
+            Q(raca__icontains=obj) |
+            Q(cor__icontains=obj) |
+            Q(porte__icontains=obj) |
+            Q(sexo__icontains=obj[0]) |
+            Q(peso__icontains=obj) |
+            Q(castrado__icontains=obj) |
+            Q(data_nascimento__icontains=obj))
+    else:
+        animais_pag = models.Animal.objects.all() 
+        
     animais_paginator = Paginator(animais_pag,5)
     page_num = request.GET.get('page')
-    page = animais_paginator.get_page(page_num)
-    
+    page = animais_paginator.get_page(page_num)  
     return render(request, 'animal/lista.html',{'page':page})
 class DetalheAnimal(View):
     def get(self, *args, **kwargs):

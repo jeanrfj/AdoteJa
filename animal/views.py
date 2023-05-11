@@ -22,7 +22,7 @@ def ListaAnimal(request):
         animais_pag = models.Animal.objects.filter(
             Q(nome_animal__icontains=obj) | 
             Q(descricao__icontains=obj) |
-            Q(especie__icontains=obj) |
+            Q(especie__icontains=obj[0]) |
             Q(raca__icontains=obj) |
             Q(cor__icontains=obj) |
             Q(porte__icontains=obj) |

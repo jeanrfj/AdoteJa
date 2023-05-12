@@ -36,7 +36,7 @@ def ListaAnimal(request):
     animais_paginator = Paginator(animais_pag,5)
     page_num = request.GET.get('page')
     page = animais_paginator.get_page(page_num)  
-    return render(request, 'animal/lista.html',{'page':page})
+    return render(request, 'animal/lista.html',{'page':page,'obj':obj})
 class DetalheAnimal(View):
     def get(self, *args, **kwargs):
         return HttpResponse('Detalhe')

@@ -77,19 +77,28 @@
                             <a href="?page={{ page_num }}" class="btn btn-outline-primary">
                                 {{ page_num }}
                             </a>
-                        {% endif %}
+                        {% endif %} 
                     
                     {% endif %}  
             
                     {% endfor %}
-                                
-                {% if page.has_next %}
+                    
+                    {% if page.has_next %}
+                        {% if obj %}
+                            <a href="?page={{ page.next_page_number }}&obj={{ obj }}" class="btn btn-outline-primary">&raquo;</a>
+                        {% else %}
+                            <a href="?page={{ page.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+                        {% endif %}    
+                {% endif %}
+
+
+                {% comment %} {% if page.has_next %}
                     {% if request.GET.obj %}
                         <a href="?page={{ page.next_page_number }}&obj={{request.GET.obj}}" class="btn btn-outline-primary">&raquo;</a>
                     {% else %}
-                        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+                        <a href="?page={{ page.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
                     {% endif %}    
-                {% endif %}
+                {% endif %} {% endcomment %}
             </div>
         {% endif %}
             

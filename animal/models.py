@@ -6,7 +6,7 @@ from django.conf import settings
 from django.utils.text import slugify
 from django import forms
 from contatos.models import Contato
-
+from django.contrib.auth.models import User
 
 class Animal(models.Model):
     nome_animal = models.CharField(max_length=255)
@@ -39,6 +39,8 @@ class Animal(models.Model):
                                       ('M', 'Medio'),
                                       ('G', 'Grande'),
                                       ('', 'Escolha'),))
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='animais')
+    ativo = models.BooleanField(default=True)
     # TODO:VARIAVEL TEMPORARIA, FALTA DEFINIR COMO ACESSAR A OUTRA CLASSE COM AS FOTOS
 
     @staticmethod  # TODO: REDIMENCIONA IMAGENS ADICIONADAS

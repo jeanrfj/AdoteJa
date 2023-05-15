@@ -13,6 +13,12 @@ class FormContato(forms.ModelForm):
         exclude = ('mostrar','categoria')
 
 class FormCadastroAnimal(forms.ModelForm):
+    ativo = forms.BooleanField(required=False, widget=forms.CheckboxInput())
     class Meta:
         model = Animal
-        exclude = ('slug',)
+        exclude = ('slug','user','ativo')
+        
+        def __init__(self, *args, **kwargs):
+            user = kwargs.pop('user')
+            super().__init__(*args, **kwargs)
+            self.instance.user = user

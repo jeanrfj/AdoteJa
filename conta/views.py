@@ -164,7 +164,8 @@ def dashboard(request):
 
 @login_required(redirect_field_name='login')
 def dashboardAnimais(request):
-    animais = Animal.objects.order_by('-id')
+    user = request.user
+    animais = Animal.objects.filter(user=request.user).order_by('-id')
     paginator = Paginator(animais, 20)
 
     page = request.GET.get('p')
@@ -181,15 +182,16 @@ def dashboardAnimaisCadastrar(request):
         form = FormCadastroAnimal(request.POST,request.FILES)
 
         if form.is_valid():
-            form.save()
+            animal = form.save(commit=False)
+            animal.user = request.user
+            animal.save()
             messages.success(request, 'Animal cadastrado com sucesso.')
             return redirect('animal:lista')
         else:
             messages.error(request,'erro ao cadastrar animal !')
     else:
         form = FormCadastroAnimal()
-    return render(request, 'cadastrar-animal.html',{'form':form})
-            
+    return render(request, 'cadastrar-animal.html',{'form':form})            
     
 def dashboardInteressados(request):
     contatos = Contato.objects.order_by('-id').filter(

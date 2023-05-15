@@ -3,40 +3,54 @@
 {%block conteudo%}
 
 <div class="row">
+    <div class="container">
+        <form method="  get" action="{% url 'animal:lista' %}" class="d-flex gap-3 mt-0 mb-5">
+            <input class="form-control mr-sm-2" type="search" name="obj" value="{{request.GET.obj}}"
+             placeholder="Pesquisar" aria-label="Pesquisar" autocomplete="off">
+             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>  
+             {%if request.GET.obj%}
+            <a href="/animais" class="btn btn-light border">Limpar </a>
+            {%endif%}
+          </form>
+    </div>
+    
     <div class="col-lg-12">
         <div class="card-columns">
 
             {%for animal in page.object_list%}
-            <div class="card">
-                {%if animal.imagem %} <!--VERRIFICA SE TEM IMAGEM-->
-                <!--#TODO:DEFINIR COMO VOU ACESSAR A OUTRA CLASSE COM O RESTO DAS FOTOS-->
-                <a href="interesse/{{ animal.id }}/{{ animal.nome_animal }}">
-                    <img class="card-img-top" src="{{animal.imagem.url}}" alt="{{ animal.nome_animal }}">
-                </a>
-                {% endif %}
-
-                <div class="card-body">
-                    <h5 class="card-title">{{ animal.nome_animal }}</h5>
-                    <p class="card-text">{{ animal.descricao }}</p>
-                    {% if animal.sexo == 'M' %}
-                        <p class="card-text">Sexo: Macho</p>
-                    {% elif animal.sexo == 'F' %}
-                        <p class="card-text">Sexo: Femea</p>
-                    {% elif animal.sexo == '' %}
-                        <p class="card-text">O sexo deste animal não foi especificado</p>
+            {%if animal.ativo == True%}
+                <div class="card">
+                    {%if animal.imagem %} <!--VERRIFICA SE TEM IMAGEM-->
+                    <!--#TODO:DEFINIR COMO VOU ACESSAR A OUTRA CLASSE COM O RESTO DAS FOTOS-->
+                    <a href="interesse/{{ animal.id }}/{{ animal.nome_animal }}">
+                        <img class="card-img-top" src="{{animal.imagem.url}}" alt="{{ animal.nome_animal }}">
+                    </a>
                     {% endif %}
-                    <div class="container product-price-block text-center">
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ animal.nome_animal }}</h5>
+                        <p class="card-text">{{ animal.descricao }}</p>
+                        {% if animal.sexo == 'M' %}
+                            <p class="card-text">Sexo: Macho</p>
+                        {% elif animal.sexo == 'F' %}
+                            <p class="card-text">Sexo: Femea</p>
+                        {% elif animal.sexo == '' %}
+                            <p class="card-text">O sexo deste animal não foi especificado</p>
+                        {% endif %}
+                        <div class="container product-price-block text-center">
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-light-custom text-center">
+                        <a href="interesse/{{ animal.id }}/{{ animal.nome_animal }}"
+                            class="btn btn-primary btn-sm m-1 btn-block">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                            Adotar
+                        </a>
                     </div>
                 </div>
-                <div class="card-footer bg-transparent border-top-light-custom text-center">
-                    <a href="interesse/{{ animal.id }}/{{ animal.nome_animal }}"
-                        class="btn btn-primary btn-sm m-1 btn-block">
-                        <i class="fa fa-heart" aria-hidden="true"></i>
-                        Adotar
-                    </a>
-                </div>
-            </div>
+        
 
+            {%endif%}
             {% endfor %}
 
         </div>

@@ -2,6 +2,21 @@
 
 {%block conteudo%}
 
+
+<div class="d-flex my-4">
+    <form method="get" action="{% url 'animal:lista' %}" class="form-inline d-flex justify-content-center"
+        style="width: 100%;">
+        <input class="form-control mr-sm-2" type="search" name="obj" value="{{request.GET.obj}}" placeholder="Pesquisar"
+            aria-label="Pesquisar" autocomplete="off" style="flex-grow: 1;">
+        {%if request.GET.obj%}
+        <a href="/animais" class="btn btn-light border mr-sm-2">Resetar </a>
+        {%endif%}
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+
+
+    </form>
+</div>
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card-columns">
@@ -11,108 +26,108 @@
                 {%if animal.imagem %} <!--VERRIFICA SE TEM IMAGEM-->
                 <!--#TODO:DEFINIR COMO VOU ACESSAR A OUTRA CLASSE COM O RESTO DAS FOTOS-->
                 <a href="interesse/{{ animal.id }}/{{ animal.nome_animal }}">
-                    <img class="card-img-top" src="{{animal.imagem.url}}" alt="{{ animal.nome_animal }}">
+                    <img class="card-img-top" src="{{animal.imagem.url}}" alt="{{ animal.nome_animal }}"
+                        style="height: 265px; object-fit: cover;">
                 </a>
                 {% endif %}
-
                 <div class="card-body">
                     <h5 class="card-title">{{ animal.nome_animal }}</h5>
-                    <p class="card-text">{{ animal.descricao }}</p>
-                    {% if animal.sexo == 'M' %}
-                        <p class="card-text">Sexo: Macho</p>
-                    {% elif animal.sexo == 'F' %}
-                        <p class="card-text">Sexo: Femea</p>
-                    {% elif animal.sexo == '' %}
-                        <p class="card-text">O sexo deste animal não foi especificado</p>
-                    {% endif %}
-                    <div class="container product-price-block text-center">
-                    </div>
-                </div>
-                <div class="card-footer bg-transparent border-top-light-custom text-center">
-                    <a href="interesse/{{ animal.id }}/{{ animal.nome_animal }}"
-                        class="btn btn-primary btn-sm m-1 btn-block">
-                        <i class="fa fa-heart" aria-hidden="true"></i>
-                        Adotar
-                    </a>
-                </div>
-            </div>
-
-            {% endfor %}
-
-        </div>
-    </div>
-        <div>
-        {% if page.has_other_pages %}
-            <div class="btn-group" role="group" aria-label="Item pagination">
-        
-                {% if page.has_previous %}
-                    
-                    {%if request.GET.obj%}        
-                        <a href="?page={{ page.previous_page_number }}&obj={{request.GET.obj}}" class="btn btn-outline-primary">&laquo;</a> 
-                    {% else %}
-                        <a href="?page={{ page.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a> 
-                    {% endif %} 
-
-                {% endif %}
-            
-                {% for page_num in page.paginator.page_range %}
-                    {% if request.GET.obj %}
-                        {% if page.number == page_num %}
-                            <button class="btn btn-outline-primary active">
-                                <span>{{ page_num }} <span class="sr-only">(Atual)</span></span>
-                            </button>
+                    <p class="card-text mb-0"">{{ animal.raca }} |      {% if animal.sexo == 'M' %}
+                        Macho
+                        {% elif animal.sexo == 'F' %}
+                        Fêmea
                         {% else %}
-                        <a href="?page={{ page_num }}&obj={{request.GET.obj}}" class="btn btn-outline-primary">
-                            {{ page_num }}
-                        </a>
-                        {% endif %}
-                    
-                    {%else%}
-
-                        {% if page.number == page_num %}
-                            <button class="btn btn-outline-primary active">
-                                <span>{{ page_num }} <span class="sr-only">(Atual)</span></span>
-                            </button>
-                        {% else %}
-                            <a href="?page={{ page_num }}" class="btn btn-outline-primary">
-                                {{ page_num }}
-                            </a>
-                        {% endif %} 
-                    
-                    {% endif %}  
-            
-                    {% endfor %}
-                    
-                    {% if page.has_next %}
-                        {% if obj %}
-                            <a href="?page={{ page.next_page_number }}&obj={{ obj }}" class="btn btn-outline-primary">&raquo;</a>
-                        {% else %}
-                            <a href="?page={{ page.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
-                        {% endif %}    
-                {% endif %}
-
-
-                {% comment %} {% if page.has_next %}
-                    {% if request.GET.obj %}
-                        <a href="?page={{ page.next_page_number }}&obj={{request.GET.obj}}" class="btn btn-outline-primary">&raquo;</a>
-                    {% else %}
-                        <a href="?page={{ page.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
-                    {% endif %}    
-                {% endif %} {% endcomment %}
-            </div>
-        {% endif %}
-            
-            {% comment %} {% if page.has_previous %}
-                <a href="{% url 'animal:lista' %}?page={{ page.previous_page_number }}">Anterior</a>
-            {% endif %}
-
-            <span class="current-page">{{ page.number }}</span>
-
-            {% if page.has_next %}
-                <a href="{% url 'animal:lista' %}?page={{ page.next_page_number }}">Próxima</a>
+                        Não especificado
+                        {% endif %}  </p>
                 
-            {% endif %}
- {% endcomment %}
+                    <div class=" container product-price-block text-center">
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-top-light-custom text-center">
+                <a href="interesse/{{ animal.id }}/{{ animal.nome_animal }}" class="btn btn-primary btn-sm btn-block">
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                    Detalhes
+                </a>
+            </div>
+        </div>
+
+        {% endfor %}
+
     </div>
+</div>
+<div>
+    {% if page.has_other_pages %}
+    <div class="btn-group" role="group" aria-label="Item pagination">
+
+        {% if page.has_previous %}
+
+        {%if request.GET.obj%}
+        <a href="?page={{ page.previous_page_number }}&obj={{request.GET.obj}}"
+            class="btn btn-outline-primary">&laquo;</a>
+        {% else %}
+        <a href="?page={{ page.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+        {% endif %}
+
+        {% endif %}
+
+        {% for page_num in page.paginator.page_range %}
+        {% if request.GET.obj %}
+        {% if page.number == page_num %}
+        <button class="btn btn-outline-primary active">
+            <span>{{ page_num }} <span class="sr-only">(Atual)</span></span>
+        </button>
+        {% else %}
+        <a href="?page={{ page_num }}&obj={{request.GET.obj}}" class="btn btn-outline-primary">
+            {{ page_num }}
+        </a>
+        {% endif %}
+
+        {%else%}
+
+        {% if page.number == page_num %}
+        <button class="btn btn-outline-primary active">
+            <span>{{ page_num }} <span class="sr-only">(Atual)</span></span>
+        </button>
+        {% else %}
+        <a href="?page={{ page_num }}" class="btn btn-outline-primary">
+            {{ page_num }}
+        </a>
+        {% endif %}
+
+        {% endif %}
+
+        {% endfor %}
+
+        {% if page.has_next %}
+        {% if obj %}
+        <a href="?page={{ page.next_page_number }}&obj={{ obj }}" class="btn btn-outline-primary">&raquo;</a>
+        {% else %}
+        <a href="?page={{ page.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+        {% endif %}
+        {% endif %}
+
+
+        {% comment %} {% if page.has_next %}
+        {% if request.GET.obj %}
+        <a href="?page={{ page.next_page_number }}&obj={{request.GET.obj}}" class="btn btn-outline-primary">&raquo;</a>
+        {% else %}
+        <a href="?page={{ page.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+        {% endif %}
+        {% endif %} {% endcomment %}
+    </div>
+    {% endif %}
+
+    {% comment %} {% if page.has_previous %}
+    <a href="{% url 'animal:lista' %}?page={{ page.previous_page_number }}">Anterior</a>
+    {% endif %}
+
+    <span class="current-page">{{ page.number }}</span>
+
+    {% if page.has_next %}
+    <a href="{% url 'animal:lista' %}?page={{ page.next_page_number }}">Próxima</a>
+
+    {% endif %}
+    {% endcomment %}
+</div>
 </div>
 {%endblock%}

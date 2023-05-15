@@ -10,9 +10,16 @@ from django import forms
 class FormContato(forms.ModelForm):
     class Meta:
         model = Contato
-        exclude = ('mostrar','categoria')
+        exclude = ('mostrar', 'categoria')
+
 
 class FormCadastroAnimal(forms.ModelForm):
+    # data_nascimento = forms.DateField(
+    #     widget=forms.DateInput(attrs={'type': 'date'}),
+    #     input_formats=['%Y-%m-%d'],
+    #     help_text='YYYY-MM-DD'
+    # )
+
     class Meta:
         model = Animal
         exclude = ('slug',)

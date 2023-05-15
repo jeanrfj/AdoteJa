@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages, auth
 from django.core.validators import validate_email
 from django.contrib.auth.decorators import login_required
@@ -178,19 +178,38 @@ def dashboardAnimais(request):
 @login_required(redirect_field_name='login')
 def dashboardAnimaisCadastrar(request):
     if request.method == 'POST':
-        form = FormCadastroAnimal(request.POST,request.FILES)
+        form = FormCadastroAnimal(request.POST, request.FILES)
 
         if form.is_valid():
             form.save()
             messages.success(request, 'Animal cadastrado com sucesso.')
             return redirect('animal:lista')
         else:
-            messages.error(request,'erro ao cadastrar animal !')
+            messages.error(request, 'erro ao cadastrar animal !')
     else:
         form = FormCadastroAnimal()
-    return render(request, 'cadastrar-animal.html',{'form':form})
-            
-    
+    return render(request, 'cadastrar-animal.html', {'form': form})
+
+
+@login_required(redirect_field_name='login')
+def dashboardAnimaisEditar(request, animal_id):
+    animal = get_object_or_404(Animal, id=animal_id)
+
+    if request.method == 'POST':
+        form = FormCadastroAnimal(request.POST, request.FILES, instance=animal)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Animal editado com sucesso.')
+            return redirect('dashboard-animais')
+        else:
+            messages.error(request, 'Erro ao editar animal!')
+    else:
+        form = FormCadastroAnimal(instance=animal)
+
+    return render(request, 'editar-animal.html', {'form': form})
+
+
 def dashboardInteressados(request):
     contatos = Contato.objects.order_by('-id').filter(
         mostrar=True

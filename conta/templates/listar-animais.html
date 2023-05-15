@@ -25,7 +25,7 @@
 
             <td>{{ animal.nome_animal }}</td>
             <td>{{ animal.especie }}</td>
-            <td><a href="{% url 'dashboard-animais-cadastrar' %}" style="color: blue;">Editar</a>
+            <td><a href="{% url 'dashboard-animais-editar' animal.id %}" style="color: blue;">Editar</a>
                 <a href="{% url 'dashboard-animais-cadastrar' %}" style="color: red;">Desativar</a>
             </td>
         </tr>

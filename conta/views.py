@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages, auth
 from django.core.validators import validate_email
 from django.contrib.auth.decorators import login_required
-from .models import FormContato, Contato, FormCadastroAnimal, Animal
+from .models import FormContato, Contato, FormCadastroAnimal, Animal,EditarAnimal
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -176,6 +176,7 @@ def dashboardAnimais(request):
     })
 
 
+
 @login_required(redirect_field_name='login')
 def dashboardAnimaisCadastrar(request):
     if request.method == 'POST':
@@ -199,7 +200,7 @@ def dashboardAnimaisEditar(request, animal_id):
     animal = get_object_or_404(Animal, id=animal_id)
 
     if request.method == 'POST':
-        form = FormCadastroAnimal(request.POST, request.FILES, instance=animal)
+        form = EditarAnimal(request.POST, request.FILES, instance=animal)
 
         if form.is_valid():
             form.save()
@@ -208,7 +209,7 @@ def dashboardAnimaisEditar(request, animal_id):
         else:
             messages.error(request, 'Erro ao editar animal!')
     else:
-        form = FormCadastroAnimal(instance=animal)
+        form = EditarAnimal(instance=animal)
 
     return render(request, 'editar-animal.html', {'form': form})
 

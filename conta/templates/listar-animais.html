@@ -26,10 +26,10 @@
 
             <td>{{ animal.nome_animal }}</td>
             <td>{{ animal.especie }}</td>
-            <td><a href="{% url 'dashboard-animais-editar' animal.id %}" style="color: blue;">Editar</a>
-                <a href="{% url 'dashboard-animais-cadastrar' %}" style="color: red;">Desativar</a>
+            <td><a href="{% url 'dashboard-animais-editar' animal.id %}" style="color: blue;">Editar / <span style="color: red;" >Desativar Animal</span></a>
+                
             </td>
-            <td>
+            {% comment %} <td>
                 <div class="form-check form-switch">
 
                     <input class="form-check-input" type="checkbox" id="ativo-checkbox" {% if animal.ativo %}checked{% endif %}>
@@ -37,7 +37,7 @@
                   
                   </div>
                                 
-            </td>
+            </td> {% endcomment %}
         </tr>
         {% endfor %}
         

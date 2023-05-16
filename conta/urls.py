@@ -14,8 +14,6 @@ urlpatterns = [
          name='dashboard-animais-cadastrar'),
     path('dashboard/animais/editar/<int:animal_id>', views.dashboardAnimaisEditar,
          name='dashboard-animais-editar'),
-    path('dashboard/animais/deletar', views.dashboardAnimaisCadastrar,
-         name='dashboard-animais-deletar'),
     path('dashboard/interessados/', views.dashboardInteressados,
          name='dashboard-interessados'),
     path('dashboard/perfil/', views.dashboardPerfil, name='dashboard-perfil'),

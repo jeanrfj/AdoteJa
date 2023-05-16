@@ -9,6 +9,7 @@ from contatos.models import Contato
 from django.contrib.auth.models import User
 
 class Animal(models.Model):
+    ativo = models.BooleanField(default=True)
     nome_animal = models.CharField(max_length=255)
     especie = models.CharField(max_length=50,
                                default='',
@@ -40,7 +41,7 @@ class Animal(models.Model):
                                       ('G', 'Grande'),
                                       ('', 'Escolha'),))
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='animais')
-    ativo = models.BooleanField(default=True)
+    
     # TODO:VARIAVEL TEMPORARIA, FALTA DEFINIR COMO ACESSAR A OUTRA CLASSE COM AS FOTOS
 
     @staticmethod  # TODO: REDIMENCIONA IMAGENS ADICIONADAS

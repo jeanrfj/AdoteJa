@@ -2,9 +2,24 @@
 
 {%block conteudo%}
 
-
+<h1 class="m-0 mb-2 container d-flex justify-content-center">Animais cadastrados</h1>
 <div class="d-flex align-items-center justify-content-between">
-    <h1 class="m-0">Animais cadastrados</h1> <a class="btn btn-primary" href="cadastrar/" role="button">Cadastrar</a>
+     
+    
+        <form method="get" action="{% url 'dashboard-animais' %}" class="form-inline d-flex justify-content-center mr-2"
+        style="width: 100%;">
+        <input class="form-control mr-sm-2" type="search" name="obj" value="{{request.GET.obj}}" placeholder="Pesquisar"
+            aria-label="Pesquisar" autocomplete="off" style="flex-grow: 1;">
+        {%if request.GET.obj%}
+        <a href="{% url 'dashboard-animais' %}" class="btn btn-light border mr-sm-2">Resetar </a>
+        {%endif%}
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+
+
+    </form>
+    
+    <a class="btn btn-primary" href="cadastrar/" role="button">Cadastrar</a>
+    
 </div>
 
 <table class="table">
@@ -13,6 +28,8 @@
             <th>ID</th>
             <th>Nome</th>
             <th>Espécie</th>
+            <th>Sexo</th>
+            <th>Raça</th>
             <th>Opções</th>
 
         </tr>
@@ -20,12 +37,14 @@
     <tbody>
 
 
-        {% for animal in animais %}
+        {% for animal in page %}
         <tr>
             <td>{{ animal.id }}</td>
 
             <td>{{ animal.nome_animal }}</td>
             <td>{{ animal.especie }}</td>
+            <td>{{ animal.sexo }}</td>
+            <td>{{ animal.raca }}</td>
             <td><a href="{% url 'dashboard-animais-editar' animal.id %}" style="color: blue;">Editar / <span style="color: red;" >Desativar Animal</span></a>
                 
             </td>
@@ -37,8 +56,8 @@
                   
                   </div>
                                 
-            </td> {% endcomment %}
-        </tr>
+            </td>
+ {% endcomment %}        </tr>
         {% endfor %}
         
 

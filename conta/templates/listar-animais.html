@@ -42,8 +42,20 @@
             <td>{{ animal.id }}</td>
 
             <td>{{ animal.nome_animal }}</td>
-            <td>{{ animal.especie }}</td>
-            <td>{{ animal.sexo }}</td>
+            <td>
+                {% if animal.especie == 'C' %}
+                Cachorro
+                {% elif animal.especie == 'G' %}
+                Gato
+                {%endif%}
+            </td>
+            <td>
+                {%if animal.sexo == 'M'%}
+                Macho
+                {%elif animal.sexo == 'F'%}
+                Fêmea
+                {%endif%}
+            </td>
             <td>{{ animal.raca }}</td>
             <td><a href="{% url 'dashboard-animais-editar' animal.id %}" style="color: blue;">Editar / <span style="color: red;" >Desativar Animal</span></a>
                 
@@ -56,8 +68,8 @@
                   
                   </div>
                                 
-            </td>
- {% endcomment %}        </tr>
+            </td> {% endcomment %}
+        </tr>
         {% endfor %}
         
 

@@ -168,7 +168,7 @@ def dashboardAnimais(request):
 
     if obj:
         animais_pag = models.Animal.objects.filter(
-            Q(nome_animal__icontains=obj) | 
+            (Q(nome_animal__icontains=obj) | 
             Q(descricao__icontains=obj) |
             Q(especie__icontains=obj[0]) |
             Q(raca__icontains=obj) |
@@ -177,11 +177,11 @@ def dashboardAnimais(request):
             Q(sexo__icontains=obj[0]) |
             Q(peso__icontains=obj) |
             Q(castrado__icontains=obj) |
-            Q(data_nascimento__icontains=obj))
+            Q(data_nascimento__icontains=obj))& Q(user=request.user))
     else:
         animais_pag = Animal.objects.filter(user=request.user).order_by('-id') 
         
-    animais_paginator = Paginator(animais_pag,20)
+    animais_paginator = Paginator(animais_pag,10)
     page_num = request.GET.get('page')
     page = animais_paginator.get_page(page_num)  
     return render(request, 'listar-animais.html',{'page':page,'obj':obj})

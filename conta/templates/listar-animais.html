@@ -77,20 +77,56 @@
     </tbody>
 </table>
 
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        {% for pagina in contatos.paginator.page_range %}
-        {% if contatos.number == pagina %}
-        <li class="page-item active">
-            <a class="page-link" href="?p={{ pagina }}&termo={{ request.GET.termo }}">{{pagina}}</a>
-        </li>
-        {% else %}
-        <li class="page-item">
-            <a class="page-link" href="?p={{ pagina }}&termo={{ request.GET.termo }}">{{pagina}}</a>
-        </li>
-        {% endif %}
-        {% endfor %}
-    </ul>
-</nav>
+<div>
+    {% if page.has_other_pages %}
+    <div class="btn-group" role="group" aria-label="Item pagination">
 
+        {% if page.has_previous %}
+
+        {%if request.GET.obj%}
+        <a href="?page={{ page.previous_page_number }}&obj={{request.GET.obj}}"
+            class="btn btn-outline-primary">&laquo;</a>
+        {% else %}
+        <a href="?page={{ page.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+        {% endif %}
+
+        {% endif %}
+
+        {% for page_num in page.paginator.page_range %}
+        {% if request.GET.obj %}
+        {% if page.number == page_num %}
+        <button class="btn btn-outline-primary active">
+            <span>{{ page_num }} <span class="sr-only">(Atual)</span></span>
+        </button>
+        {% else %}
+        <a href="?page={{ page_num }}&obj={{request.GET.obj}}" class="btn btn-outline-primary">
+            {{ page_num }}
+        </a>
+        {% endif %}
+
+        {%else%}
+
+        {% if page.number == page_num %}
+        <button class="btn btn-outline-primary active">
+            <span>{{ page_num }} <span class="sr-only">(Atual)</span></span>
+        </button>
+        {% else %}
+        <a href="?page={{ page_num }}" class="btn btn-outline-primary">
+            {{ page_num }}
+        </a>
+        {% endif %}
+
+        {% endif %}
+
+        {% endfor %}
+
+        {% if page.has_next %}
+        {% if obj %}
+        <a href="?page={{ page.next_page_number }}&obj={{ obj }}" class="btn btn-outline-primary">&raquo;</a>
+        {% else %}
+        <a href="?page={{ page.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+        {% endif %}
+        {% endif %}
+    </div>
+    {% endif %}
 {%endblock%}

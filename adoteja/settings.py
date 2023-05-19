@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'contatos',
+    'perfil',
     'conta',
     'animal',
     'sobre',

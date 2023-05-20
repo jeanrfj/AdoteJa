@@ -26,7 +26,7 @@
             <div class="card">
                 {%if animal.imagem %} <!--VERRIFICA SE TEM IMAGEM-->
                 <!--#TODO:DEFINIR COMO VOU ACESSAR A OUTRA CLASSE COM O RESTO DAS FOTOS-->
-                <a href="interesse/{{ animal.id }}/{{ animal.nome_animal }}">
+                <a href="{{animal.slug}}">
                     <img class="card-img-top" src="{{animal.imagem.url}}" alt="{{ animal.nome_animal }}"
                         style="height: 265px; object-fit: cover;">
                 </a>

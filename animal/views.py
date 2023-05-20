@@ -1,4 +1,4 @@
-from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.views import View
 from django.http import HttpResponse
@@ -37,10 +37,10 @@ def ListaAnimal(request):
     page_num = request.GET.get('page')
     page = animais_paginator.get_page(page_num)  
     return render(request, 'animal/lista.html',{'page':page,'obj':obj})
-class DetalheAnimal(View):
-    def get(self, *args, **kwargs):
-        return HttpResponse('Detalhe')
-
+class DetalheAnimal(DetailView):
+    model = models.Animal
+    template_name = 'animal/detalhe.html'
+    slug_url_kwarg = 'slug'
 
 class AdicionarAnimal(View):
     def get(self, *args, **kwargs):

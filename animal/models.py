@@ -9,7 +9,14 @@ from contatos.models import Contato
 from django.contrib.auth.models import User
 
 class Animal(models.Model):
-    ativo = models.BooleanField(default=True)
+    status_adocao_animal = models.CharField(max_length=255,
+                                            default='A',
+                                            choices=(('A', 'Para Adocao'),
+                                                    ('P', 'Pausado'),
+                                                    ('AD', 'Adotado'),
+                                                    ('', ''),),
+                                            verbose_name='Status de Adoção do Animal'
+                                            )
     nome_animal = models.CharField(max_length=255)
     especie = models.CharField(max_length=50,
                                default='',

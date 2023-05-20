@@ -33,7 +33,7 @@ def ListaAnimal(request):
     else:
         animais_pag = models.Animal.objects.all() 
         
-    animais_paginator = Paginator(animais_pag,5)
+    animais_paginator = Paginator(animais_pag,6)
     page_num = request.GET.get('page')
     page = animais_paginator.get_page(page_num)  
     return render(request, 'animal/lista.html',{'page':page,'obj':obj})

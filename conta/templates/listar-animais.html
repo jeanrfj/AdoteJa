@@ -25,6 +25,7 @@
 <table class="table">
     <thead>
         <tr>
+    
             <th>ID</th>
             <th>Nome</th>
             <th>Espécie</th>
@@ -60,7 +61,8 @@
             <td><a href="{% url 'dashboard-animais-editar' animal.id %}" style="color: blue;">
                 Editar / <span style="color: green;" >Desativar Animal</span></a>
             </td>
-            <td><a href="#" onclick="excluirAnimal({{ animal.id }})" style="color:red">Excluir</a></td>
+            <td><a class="btn border-0 btn-primary text-white bg-danger" href="#" onclick="excluirAnimal({{ animal.id }})" style="color:red">Excluir</a></td>
+            
             {% comment %} <td>
                 <div class="form-check form-switch">
 
@@ -85,7 +87,7 @@
     </tbody>
 </table>
 
-<div>
+<div class="form-inline d-flex justify-content-center mb-3">
     {% if page.has_other_pages %}
     <div class="btn-group" role="group" aria-label="Item pagination">
 

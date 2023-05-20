@@ -5,7 +5,7 @@ urlpatterns = [
     path('', views.login, name='index_login'),
     # path('', views.login, name='login'),
     path('login/', views.login, name='login'),
-    # path('perfil/', views.atualizarCadastro, name='login'),
+    path('perfil/', views.atualizarCadastro, name='atualizar_perfil'),
     path('logout/', views.logout, name='logout'),
     path('cadastro/', views.cadastro, name='cadastro'),
     # path('dashboard/', views.dashboard, name='dashboard'),
@@ -16,5 +16,5 @@ urlpatterns = [
          name='dashboard-animais-editar'),
     path('dashboard/interessados/', views.dashboardInteressados,
          name='dashboard-interessados'),
-    path('dashboard/perfil/', views.dashboardPerfil, name='dashboard-perfil'),
+    path('excluir-animal/<int:animal_id>/', views.excluir_animal, name='excluir-animal'),
 ]

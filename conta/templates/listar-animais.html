@@ -57,9 +57,10 @@
                 {%endif%}
             </td>
             <td>{{ animal.raca }}</td>
-            <td><a href="{% url 'dashboard-animais-editar' animal.id %}" style="color: blue;">Editar / <span style="color: red;" >Desativar Animal</span></a>
-                
+            <td><a href="{% url 'dashboard-animais-editar' animal.id %}" style="color: blue;">
+                Editar / <span style="color: green;" >Desativar Animal</span></a>
             </td>
+            <td><a href="#" onclick="excluirAnimal({{ animal.id }})" style="color:red">Excluir</a></td>
             {% comment %} <td>
                 <div class="form-check form-switch">
 
@@ -72,7 +73,14 @@
         </tr>
         {% endfor %}
         
-
+        <script>
+            function excluirAnimal(animalId) {
+                if (confirm("Tem certeza que deseja excluir este animal?")) {
+                    window.location.href = "{% url 'excluir-animal' animal_id=0 %}".replace('0', animalId);
+                }
+            }
+        </script>
+        
 
     </tbody>
 </table>

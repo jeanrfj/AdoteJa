@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from django.core.exceptions import ValidationError
 from django.contrib import messages, auth
 from django.core.validators import validate_email
 from django.contrib.auth.decorators import login_required
@@ -85,56 +86,52 @@ def cadastro(request):
     return redirect('login')
 
 
+@login_required
+def excluir_animal(request, animal_id):
+    animal = Animal.objects.get(id=animal_id)
+    animal.delete()
+    return redirect('dashboard-animais')
+
+@login_required
 def atualizarCadastro(request):
-    if request.method != 'POST':
-        return render(request, 'cadastro.html')
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        sobrenome = request.POST.get('sobrenome')
+        email = request.POST.get('email')
+        usuario = request.POST.get('usuario')
+        senha = request.POST.get('senha')
+        senha2 = request.POST.get('senha2')
 
-    nome = request.POST.get('nome')
-    sobrenome = request.POST.get('sobrenome')
-    email = request.POST.get('email')
-    usuario = request.POST.get('usuario')
-    senha = request.POST.get('senha')
-    senha2 = request.POST.get('senha2')
+        if not nome or not sobrenome or not email or not usuario:
+            messages.error(request, 'Nenhum campo pode estar vazio.')
+            return render(request, 'perfil.html')
 
-    if not nome or not sobrenome or not email or not usuario or not senha \
-            or not senha2:
-        messages.error(request, 'Nenhum campo pode estar vazio.')
-        return render(request, 'cadastro.html')
+        try:
+            validate_email(email)
+        except ValidationError:
+            messages.error(request, 'Email inválido.')
+            return render(request, 'perfil.html')
 
-    try:
-        validate_email(email)
-    except:
-        messages.error(request, 'Email inválido.')
-        return render(request, 'cadastro.html')
+        user = request.user
+        user.first_name = nome
+        user.last_name = sobrenome
+        user.email = email
+        user.username = usuario
 
-    if len(senha) < 6:
-        messages.error(request, 'Senha precisa ter 6 caracteres ou mais.')
-        return render(request, 'cadastro.html')
+        if senha:
+            if len(senha) < 6:
+                messages.error(request, 'Senha precisa ter 6 caracteres ou mais.')
+                return render(request, 'perfil.html')
+            if senha != senha2:
+                messages.error(request, 'Senhas não conferem.')
+                return render(request, 'perfil.html')
+            user.set_password(senha)
 
-    if len(usuario) < 6:
-        messages.error(request, 'Usuário precisa ter 6 caracteres ou mais.')
-        return render(request, 'cadastro.html')
+        user.save()
+        messages.success(request, 'Dados atualizados com sucesso.')
+        return render(request,'perfil.html')
 
-    if senha != senha2:
-        messages.error(request, 'Senhas não conferem.')
-        return render(request, 'cadastro.html')
-
-    if User.objects.filter(username=usuario).exists():
-        messages.error(request, 'Usuário já existe.')
-        return render(request, 'cadastro.html')
-
-    if User.objects.filter(email=email).exists():
-        messages.error(request, 'E-mail já existe.')
-        return render(request, 'cadastro.html')
-
-    messages.success(request, 'Registrado com sucesso! Agora faça login.')
-
-    user = User.objects.create_user(username=usuario, email=email,
-                                    password=senha, first_name=nome,
-                                    last_name=sobrenome)
-    user.save()
-    return redirect('login')
-
+    return render(request, 'perfil.html')
 
 """ @login_required(redirect_field_name='login')
 def dashboard(request):
@@ -253,19 +250,3 @@ def dashboardInteressados(request):
     })
 
 
-@login_required(redirect_field_name='login')
-def dashboardPerfil(request):
-    user = request.user
-    data = {'first_name': user.first_name, 'last_name': user.last_name}
-    if request.method == 'POST':
-        if 'first_name' in request.POST:
-            user.first_name = request.POST['first_name']
-            user.save()
-            messages.success(request, 'Nome atualizado com sucesso.')
-            data['first_name'] = user.first_name
-        if 'last_name' in request.POST:
-            user.last_name = request.POST['last_name']
-            user.save()
-            messages.success(request, 'Sobrenome atualizado com sucesso.')
-            data['last_name'] = user.last_name
-    return render(request, 'perfil.html', {'data': data})

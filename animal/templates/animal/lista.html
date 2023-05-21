@@ -19,11 +19,11 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="card-columns">
+        <div class="d-flex flex-wrap justify-content-between" style="gap: 50px">
 
             {%for animal in page.object_list%}
             {%if animal.status_adocao_animal == 'A'%}
-            <div class="card">
+            <div class="card" style="width: 30%;">
                 {%if animal.imagem %} <!--VERRIFICA SE TEM IMAGEM-->
                 <!--#TODO:DEFINIR COMO VOU ACESSAR A OUTRA CLASSE COM O RESTO DAS FOTOS-->
                 <a href="{{animal.slug}}">
@@ -48,16 +48,18 @@
                         {% endif %}
                     </p>
 
-                    <div class=" container product-price-block text-center">
+
+                    <div>
+                        <a href="{{animal.slug}}" class="btn btn-primary btn-sm btn-block">
+                            {% comment %} <i class="fa fa-heart" aria-hidden="true"></i> {% endcomment %}
+                            <!-- <i class="far fa-heart fa-lg"></i> -->
+                            Detalhes
+                        </a>
                     </div>
+                    <!-- <div class="container product-price-block text-center">
+                    </div> -->
                 </div>
-                <div class="card-footer bg-transparent border-top-light-custom text-center">
-                    <a href="{{animal.slug}}" class="btn btn-primary btn-sm btn-block">
-                        {% comment %} <i class="fa fa-heart" aria-hidden="true"></i> {% endcomment %}
-                        <i class="far fa-heart fa-lg"></i>
-                        Adotar
-                    </a>
-                </div>
+
             </div>
 
             {% elif animal.status_adocao_animal == 'P'%}

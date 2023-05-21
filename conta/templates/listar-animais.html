@@ -60,11 +60,15 @@
                 {%endif%}
             </td>
             <td>{{ animal.raca }}</td>
-            <td><a href="{% url 'dashboard-animais-editar' animal.id %}" style="color: blue;">
-                    Editar / <span style="color: green;">Desativar Animal</span></a>
+            <td><a href="{% url 'dashboard-animais-editar' animal.id %}" class="btn border-0 btn-primary text-white">
+                    Editar
+
+                    <!-- / <span style="color: green;">Desativar Animal</span> -->
+                </a>
+                <a class="btn border-0 btn-primary text-white bg-danger" href="#"
+                    onclick="excluirAnimal({{ animal.id }})" style="color:red">Excluir</a>
             </td>
-            <td><a class="btn border-0 btn-primary text-white bg-danger" href="#"
-                    onclick="excluirAnimal({{ animal.id }})" style="color:red">Excluir</a></td>
+            </td>
 
             {% comment %} <td>
                 <div class="form-check form-switch">

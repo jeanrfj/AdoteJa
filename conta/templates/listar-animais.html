@@ -2,11 +2,14 @@
 
 {%block conteudo%}
 
-<h1 class="m-0 mb-2 container d-flex justify-content-center">Animais cadastrados</h1>
-<div class="d-flex align-items-center justify-content-between">
-     
-    
-        <form method="get" action="{% url 'dashboard-animais' %}" class="form-inline d-flex justify-content-center mr-2"
+<div class="d-flex justify-content-between mb-4 mt-5">
+    <h1 class="text-center m-0 lh-1">Animais Cadastrados</h1>
+    <a class="btn btn-primary d-flex justify-content-center align-items-center" href="cadastrar/"
+        role="button">Cadastrar</a>
+</div>
+<div class="d-flex align-items-center justify-content-between mb-2">
+
+    <form method="get" action="{% url 'dashboard-animais' %}" class="form-inline d-flex justify-content-center mr-2"
         style="width: 100%;">
         <input class="form-control mr-sm-2" type="search" name="obj" value="{{request.GET.obj}}" placeholder="Pesquisar"
             aria-label="Pesquisar" autocomplete="off" style="flex-grow: 1;">
@@ -17,15 +20,14 @@
 
 
     </form>
-    
-    <a class="btn btn-primary" href="cadastrar/" role="button">Cadastrar</a>
-    
+
+
 </div>
 
 <table class="table">
     <thead>
         <tr>
-    
+
             <th>ID</th>
             <th>Nome</th>
             <th>Espécie</th>
@@ -59,22 +61,24 @@
             </td>
             <td>{{ animal.raca }}</td>
             <td><a href="{% url 'dashboard-animais-editar' animal.id %}" style="color: blue;">
-                Editar / <span style="color: green;" >Desativar Animal</span></a>
+                    Editar / <span style="color: green;">Desativar Animal</span></a>
             </td>
-            <td><a class="btn border-0 btn-primary text-white bg-danger" href="#" onclick="excluirAnimal({{ animal.id }})" style="color:red">Excluir</a></td>
-            
+            <td><a class="btn border-0 btn-primary text-white bg-danger" href="#"
+                    onclick="excluirAnimal({{ animal.id }})" style="color:red">Excluir</a></td>
+
             {% comment %} <td>
                 <div class="form-check form-switch">
 
-                    <input class="form-check-input" type="checkbox" id="ativo-checkbox" {% if animal.ativo %}checked{% endif %}>
+                    <input class="form-check-input" type="checkbox" id="ativo-checkbox" {% if animal.ativo %}checked{%
+                        endif %}>
                     <label class="form-check-label" for="ativo-checkbox">Disponível para adoção</label>
-                  
-                  </div>
-                                
+
+                </div>
+
             </td> {% endcomment %}
         </tr>
         {% endfor %}
-        
+
         <script>
             function excluirAnimal(animalId) {
                 if (confirm("Tem certeza que deseja excluir este animal?")) {
@@ -82,7 +86,7 @@
                 }
             }
         </script>
-        
+
 
     </tbody>
 </table>
@@ -139,4 +143,4 @@
         {% endif %}
     </div>
     {% endif %}
-{%endblock%}
+    {%endblock%}

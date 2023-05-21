@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.contrib import messages, auth
 from django.core.validators import validate_email
 from django.contrib.auth.decorators import login_required
-from .models import FormContato, Contato, FormCadastroAnimal, Animal,EditarAnimal
+from .models import FormContato, Contato, FormCadastroAnimal, Animal, EditarAnimal
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -11,6 +11,7 @@ from django.shortcuts import render
 from .forms import CustomUserChangeForm
 from . import models
 from django.db.models import Q
+
 
 def login(request):
     if request.method != 'POST':
@@ -32,7 +33,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect('index')
+    return redirect('/conta/login/')
 
 
 def cadastro(request):
@@ -92,6 +93,7 @@ def excluir_animal(request, animal_id):
     animal.delete()
     return redirect('dashboard-animais')
 
+
 @login_required
 def atualizarCadastro(request):
     if request.method == 'POST':
@@ -120,7 +122,8 @@ def atualizarCadastro(request):
 
         if senha:
             if len(senha) < 6:
-                messages.error(request, 'Senha precisa ter 6 caracteres ou mais.')
+                messages.error(
+                    request, 'Senha precisa ter 6 caracteres ou mais.')
                 return render(request, 'perfil.html')
             if senha != senha2:
                 messages.error(request, 'Senhas não conferem.')
@@ -129,9 +132,10 @@ def atualizarCadastro(request):
 
         user.save()
         messages.success(request, 'Dados atualizados com sucesso.')
-        return render(request,'perfil.html')
+        return render(request, 'perfil.html')
 
     return render(request, 'perfil.html')
+
 
 """ @login_required(redirect_field_name='login')
 def dashboard(request):
@@ -158,30 +162,33 @@ def dashboard(request):
         request, f'Contato {request.POST.get("nome")} salvo com sucesso!')
     return redirect('dashboard')
  """
-@login_required(redirect_field_name='login') #Lista de animais no dasboard
+
+
+@login_required(redirect_field_name='login')  # Lista de animais no dasboard
 def dashboardAnimais(request):
     user = request.user
     obj = request.GET.get('obj')
 
     if obj:
         animais_pag = models.Animal.objects.filter(
-            (Q(nome_animal__icontains=obj) | 
-            Q(descricao__icontains=obj) |
-            Q(especie__icontains=obj[0]) |
-            Q(raca__icontains=obj) |
-            Q(cor__icontains=obj) |
-            Q(porte__icontains=obj) |
-            Q(sexo__icontains=obj[0]) |
-            Q(peso__icontains=obj) |
-            Q(castrado__icontains=obj) |
-            Q(data_nascimento__icontains=obj))& Q(user=request.user))
+            (Q(nome_animal__icontains=obj) |
+             Q(descricao__icontains=obj) |
+             Q(especie__icontains=obj[0]) |
+             Q(raca__icontains=obj) |
+             Q(cor__icontains=obj) |
+             Q(porte__icontains=obj) |
+             Q(sexo__icontains=obj[0]) |
+             Q(peso__icontains=obj) |
+             Q(castrado__icontains=obj) |
+             Q(data_nascimento__icontains=obj)) & Q(user=request.user))
     else:
-        animais_pag = Animal.objects.filter(user=request.user).order_by('-id') 
-        
-    animais_paginator = Paginator(animais_pag,10)
+        animais_pag = Animal.objects.filter(user=request.user).order_by('-id')
+
+    animais_paginator = Paginator(animais_pag, 10)
     page_num = request.GET.get('page')
-    page = animais_paginator.get_page(page_num)  
-    return render(request, 'listar-animais.html',{'page':page,'obj':obj})
+    page = animais_paginator.get_page(page_num)
+    return render(request, 'listar-animais.html', {'page': page, 'obj': obj})
+
 
 """ 
 @login_required(redirect_field_name='login') #Lista de animais no dasboard  
@@ -248,5 +255,3 @@ def dashboardInteressados(request):
     return render(request, 'interessados.html', {
         'contatos': contatos
     })
-
-

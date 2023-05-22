@@ -1,42 +1,47 @@
 {% extends 'base.html' %}
 
-{%block conteudo%}
-<h1 class="mt-5 mb-4 lh-1">Lista de Interessados</h1>
+{% block conteudo %}
+<h1 class="mt-5 mb-4 lh-1">
+  {% if animal_nome %}
+  Lista de Interessados em {{ animal_nome }}
+  {% else %}
+  Lista de Interessados
+  {% endif %}
+</h1>
 
 <table class="table">
   <thead>
     <tr>
-      <th>ID</th>
       <th>Nome</th>
-      <th>Sobrenome</th>
+      <th>Animal</th>
+      <th>Endereço</th>
+      <th>Data de Nascimento</th>
       <th>Telefone</th>
-      <th>Categoria</th>
+      <th>Email</th>
+      <th>Data de Criação</th>
+      <th>Mensagem</th>
     </tr>
   </thead>
   <tbody>
-
-
-    {% for contato in contatos %}
+    {% for interessado in interessados %}
     <tr>
-      <td>{{ contato.id }}</td>
-      <td>
-        <a href="{% url 'ver_contato' contato.id %}">{{ contato.nome }}</a>
-      </td>
-      <td>{{ contato.sobrenome }}</td>
-      <td>{{ contato.telefone }}</td>
-      <td>{{ contato.categoria }}</td>
+      <td>{{ interessado.nome }}</td>
+      <td>{{ interessado.animal }}</td>
+      <td>{{ interessado.endereco }}</td>
+      <td>{{ interessado.data_de_nascimento }}</td>
+      <td>{{ interessado.telefone }}</td>
+      <td>{{ interessado.email }}</td>
+      <td>{{ interessado.data_criacao }}</td>
+      <td>{{ interessado.mensagem }}</td>
     </tr>
     {% endfor %}
-
-
-
   </tbody>
 </table>
 
 <nav aria-label="Page navigation example">
   <ul class="pagination">
-    {% for pagina in contatos.paginator.page_range %}
-    {% if contatos.number == pagina %}
+    {% for pagina in interessados.paginator.page_range %}
+    {% if interessados.number == pagina %}
     <li class="page-item active">
       <a class="page-link" href="?p={{ pagina }}&termo={{ request.GET.termo }}">{{pagina}}</a>
     </li>
@@ -49,4 +54,4 @@
   </ul>
 </nav>
 
-{%endblock%}
+{% endblock %}

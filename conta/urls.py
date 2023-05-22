@@ -16,5 +16,8 @@ urlpatterns = [
          name='dashboard-animais-editar'),
     path('dashboard/interessados/', views.dashboardInteressados,
          name='dashboard-interessados'),
-    path('excluir-animal/<int:animal_id>/', views.excluir_animal, name='excluir-animal'),
+    path('dashboard/interessados/<int:animal_id>', views.dashboardInteressadosEmUmAnimal,
+         name='dashboard-interessados-animal'),
+    path('excluir-animal/<int:animal_id>/',
+         views.excluir_animal, name='excluir-animal'),
 ]

@@ -1,5 +1,4 @@
 from django.db import models
-from django.db import models
 from PIL import Image
 import os
 from django.conf import settings
@@ -7,14 +6,16 @@ from django.utils.text import slugify
 from django import forms
 from contatos.models import Contato
 from django.contrib.auth.models import User
+from django.utils import timezone
+
 
 class Animal(models.Model):
     status_adocao_animal = models.CharField(max_length=255,
                                             default='A',
                                             choices=(('A', 'Para Adocao'),
-                                                    ('P', 'Pausado'),
-                                                    ('AD', 'Adotado'),
-                                                    ('', ''),),
+                                                     ('P', 'Pausado'),
+                                                     ('AD', 'Adotado'),
+                                                     ('', ''),),
                                             verbose_name='Status de Adoção do Animal'
                                             )
     nome_animal = models.CharField(max_length=255)
@@ -47,8 +48,9 @@ class Animal(models.Model):
                                       ('M', 'Medio'),
                                       ('G', 'Grande'),
                                       ('', 'Escolha'),))
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='animais')
-    
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='animais')
+
     # TODO:VARIAVEL TEMPORARIA, FALTA DEFINIR COMO ACESSAR A OUTRA CLASSE COM AS FOTOS
 
     @staticmethod  # TODO: REDIMENCIONA IMAGENS ADICIONADAS
@@ -107,5 +109,19 @@ class Foto(models.Model):
 class FormContato(forms.ModelForm):
     class Meta:
         model = Contato
-        exclude = ('mostrar','categoria',)
+        exclude = ('mostrar', 'categoria',)
 
+
+class Interessados(models.Model):
+    nome = models.CharField(max_length=255)
+    animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
+    proprietario = models.ForeignKey(User, on_delete=models.CASCADE)
+    endereco = models.CharField(max_length=255)
+    data_de_nascimento = models.CharField(max_length=255)
+    telefone = models.CharField(max_length=255)
+    data_criacao = models.DateTimeField(default=timezone.now)
+    email = models.CharField(max_length=255)
+    mensagem = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.nome

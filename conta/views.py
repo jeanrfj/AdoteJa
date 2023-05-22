@@ -1,15 +1,16 @@
+from . import models
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.exceptions import ValidationError
 from django.contrib import messages, auth
 from django.core.validators import validate_email
 from django.contrib.auth.decorators import login_required
 from .models import FormContato, Contato, FormCadastroAnimal, Animal, EditarAnimal
+from animal.models import Interessados
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .forms import CustomUserChangeForm
-from . import models
 from django.db.models import Q
 
 
@@ -190,8 +191,8 @@ def dashboardAnimais(request):
     return render(request, 'listar-animais.html', {'page': page, 'obj': obj})
 
 
-""" 
-@login_required(redirect_field_name='login') #Lista de animais no dasboard  
+"""
+@login_required(redirect_field_name='login') #Lista de animais no dasboard
 def dashboardAnimais(request):
     user = request.user
     animais = Animal.objects.filter(user=request.user).order_by('-id')
@@ -244,14 +245,34 @@ def dashboardAnimaisEditar(request, animal_id):
 
 
 def dashboardInteressados(request):
-    contatos = Contato.objects.order_by('-id').filter(
-        mostrar=True
-    )
-    paginator = Paginator(contatos, 20)
+
+    interessados = Interessados.objects.filter(
+        proprietario_id=request.user.id).order_by('-id')
+
+    paginator = Paginator(interessados, 20)
 
     page = request.GET.get('p')
-    contatos = paginator.get_page(page)
+    interessados = paginator.get_page(page)
 
     return render(request, 'interessados.html', {
-        'contatos': contatos
+        'interessados': interessados
+    })
+
+
+def dashboardInteressadosEmUmAnimal(request, animal_id):
+    interessados = Interessados.objects.filter(
+        proprietario_id=request.user.id, animal_id=animal_id).order_by('-id')
+
+    paginator = Paginator(interessados, 20)
+
+    page = request.GET.get('p')
+    interessados = paginator.get_page(page)
+
+    # Obter o objeto Animal correspondente ao animal_id
+    animal = Animal.objects.get(id=animal_id)
+
+    return render(request, 'interessados.html', {
+        'interessados': interessados,
+        # Passar o nome do animal como contexto para o template
+        'animal_nome': animal.nome_animal
     })

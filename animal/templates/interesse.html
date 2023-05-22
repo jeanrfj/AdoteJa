@@ -7,23 +7,28 @@
 {% include 'parciais/_messages.html' %}
 
 <div class="container">
-    <form action="/animais/registrar-interesse/{{nome}}/" method="POST">
+    <form action="/animais/registrar-interesse/{{id}}/" method="POST">
         {% csrf_token %}
         <table class="table">
 
             <div class="form-group">
                 <label>Seu nome:</label>
-                <input type="text" name="nomeInteressado" value="" class="form-control">
+                <input type="text" name="nome" value="" class="form-control">
             </div>
 
             <div class="form-group">
                 <label>Data de nascimento:</label>
-                <input type="text" name="nascimento" value="" class="form-control">
+                <input type="text" name="data_de_nascimento" value="" class="form-control">
             </div>
 
             <div class="form-group">
                 <label>Endereço:</label>
                 <input type="text" name="endereco" value="" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>E-mail:</label>
+                <input type="text" name="email" value="" class="form-control">
             </div>
 
             <div class="form-group">
@@ -33,7 +38,7 @@
 
             <div class="form-group">
                 <label class="exampleFormControlTextarea1">Mensagem:</label>
-                <textarea name="" id="mensagem" cols="30" rows="10"
+                <textarea name="mensagem" id="mensagem" cols="30" rows="10"
                     class="form-control">Tenho interesse no {{nome}} </textarea>
             </div>
 

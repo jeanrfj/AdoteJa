@@ -5,7 +5,7 @@
 {% block conteudo %}
 <h1 class="mt-5 mb-4 lh-1">Atualizar Cadastro</h1>
 
-<form method="POST">
+<form method="POST" class="pb-5">
   {% csrf_token %}
   {% include 'parciais/_messages.html' %}
   <div class="form-group">

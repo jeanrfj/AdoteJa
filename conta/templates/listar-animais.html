@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {%block conteudo%}
 
 <div class="d-flex justify-content-between mb-4 mt-5">
@@ -23,7 +22,7 @@
 
 
 </div>
-
+{% if page %}
 <table class="table">
     <thead>
         <tr>
@@ -44,7 +43,7 @@
         <tr>
             <td>{{ animal.id }}</td>
 
-            <td>{{ animal.nome_animal }}</td>
+            <td style="width: 100%;">{{ animal.nome_animal }}</td>
             <td>
                 {% if animal.especie == 'C' %}
                 Cachorro
@@ -60,13 +59,19 @@
                 {%endif%}
             </td>
             <td>{{ animal.raca }}</td>
-            <td><a href="{% url 'dashboard-animais-editar' animal.id %}" class="btn border-0 btn-primary text-white">
-                    Editar
+            <td>
+                <div class="d-flex" style="gap: 10px">
+                    <a href="{% url 'dashboard-animais-editar' animal.id %}"
+                        class="btn border-0 btn-primary text-white">
+                        Editar
 
-                    <!-- / <span style="color: green;">Desativar Animal</span> -->
-                </a>
-                <a class="btn border-0 btn-primary text-white bg-danger" href="#"
-                    onclick="excluirAnimal({{ animal.id }})" style="color:red">Excluir</a>
+                    </a>
+
+                    <a class="btn border-0 btn-primary text-white bg-warning"
+                        href="{% url 'dashboard-interessados-animal' animal.id %}" style="color:red">Interessados</a>
+                    <a class="btn border-0 btn-primary text-white bg-danger" href="#"
+                        onclick="excluirAnimal({{ animal.id }})" style="color:red">Excluir</a>
+                </div>
             </td>
             </td>
 
@@ -94,6 +99,12 @@
 
     </tbody>
 </table>
+
+{% else %}
+<div class="alert alert-info" role="alert">
+    Você não possui animais cadastrados.
+</div>
+{% endif %}
 
 <div class="form-inline d-flex justify-content-center mb-3">
     {% if page.has_other_pages %}

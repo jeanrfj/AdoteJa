@@ -1,217 +1,217 @@
 {%extends 'base.html'%}
 
 {%block conteudo%}
+<div class="container bg-white pt-4" style="min-height: 700px; box-shadow: 8px 10px 20px #dae0eb99;">
+
+    <div class="d-flex mb-4">
+        <form method="get" action="{% url 'animal:lista' %}" class="form-inline d-flex justify-content-center"
+            style="width: 100%;">
+            <input class="form-control mr-sm-2" type="search" name="obj" value="{{request.GET.obj}}"
+                placeholder="Pesquisar" aria-label="Pesquisar" autocomplete="off" style="flex-grow: 1;">
+            {%if request.GET.obj%}
+            <a href="/animais" class="btn btn-light border mr-sm-2">Resetar </a>
+            {%endif%}
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
 
 
-<div class="d-flex mb-4 mt-4">
-    <form method="get" action="{% url 'animal:lista' %}" class="form-inline d-flex justify-content-center"
-        style="width: 100%;">
-        <input class="form-control mr-sm-2" type="search" name="obj" value="{{request.GET.obj}}" placeholder="Pesquisar"
-            aria-label="Pesquisar" autocomplete="off" style="flex-grow: 1;">
-        {%if request.GET.obj%}
-        <a href="/animais" class="btn btn-light border mr-sm-2">Resetar </a>
-        {%endif%}
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+        </form>
+    </div>
 
+    <div class="row pb-5">
 
-    </form>
-</div>
+        <div class="d-flex flex-wrap justify-content-start" style="gap: 50px">
 
-<div class="row pb-5">
+            {%for animal in page.object_list%}
+            {%if animal.status_adocao_animal == 'A'%}
+            <div class="shadow p-3 bg-white rounded" style="width: 334px;">
+                {%if animal.imagem %} <!--VERRIFICA SE TEM IMAGEM-->
+                <!--#TODO:DEFINIR COMO VOU ACESSAR A OUTRA CLASSE COM O RESTO DAS FOTOS-->
+                <a href="{{animal.slug}}">
+                    <img class="card-img-top" src="{{animal.imagem.url}}" alt="{{ animal.nome_animal }}"
+                        style="height: 265px; object-fit: cover;">
+                </a>
 
-    <div class="d-flex flex-wrap justify-content-start" style="gap: 50px">
+                {% endif %}
 
-        {%for animal in page.object_list%}
-        {%if animal.status_adocao_animal == 'A'%}
-        <div class="shadow p-3 bg-white rounded" style="width: 334px;">
-            {%if animal.imagem %} <!--VERRIFICA SE TEM IMAGEM-->
-            <!--#TODO:DEFINIR COMO VOU ACESSAR A OUTRA CLASSE COM O RESTO DAS FOTOS-->
-            <a href="{{animal.slug}}">
-                <img class="card-img-top" src="{{animal.imagem.url}}" alt="{{ animal.nome_animal }}"
-                    style="height: 265px; object-fit: cover;">
-            </a>
-
-            {% endif %}
-
-            <div>
-                <h5 class="card-title my-2">{{ animal.nome_animal }}</h5>
-                <p class="card-text mb-2"">
+                <div>
+                    <h5 class="card-title my-2">{{ animal.nome_animal }}</h5>
+                    <p class="card-text mb-2"">
                         <!-- Raça:  |   -->
                         {{ animal.raca }}    
                         {% if animal.sexo == 'M' %}
                         <!-- Macho  -->
                         <i class=" fas fa-mars fa-lg"></i>
 
-                    {% elif animal.sexo == 'F' %}
-                    Fêmea
-                    <i class="fas fa-venus fa-lg"></i>
-                    {% else %}
-                    Não especificado
-                    {% endif %}
-                </p>
+                        {% elif animal.sexo == 'F' %}
+                        Fêmea
+                        <i class="fas fa-venus fa-lg"></i>
+                        {% else %}
+                        Não especificado
+                        {% endif %}
+                    </p>
 
 
-                <div>
-                    <a href="{{animal.slug}}" class="btn btn-primary btn-sm btn-block">
+                    <div>
+                        <a href="{{animal.slug}}" class="btn btn-primary btn-sm btn-block">
+                            {% comment %} <i class="fa fa-heart" aria-hidden="true"></i> {% endcomment %}
+                            <!-- <i class="far fa-heart fa-lg"></i> -->
+                            Detalhes
+                        </a>
+                    </div>
+                    <!-- <div class="container product-price-block text-center">
+                    </div> -->
+                </div>
+
+            </div>
+
+            {% elif animal.status_adocao_animal == 'P'%}
+
+            <div class="card text-white bg-warning">
+                <a href="#">
+                    <img class="card-img-top" src="{{animal.imagem.url}}" alt="{{ animal.nome_animal }}"
+                        style="height: 265px; object-fit: cover;">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ animal.nome_animal }}</h5>
+                    <p class="card-text mb-2"">Raça: {{ animal.raca }} |      
+                    {% if animal.sexo == 'M' %}
+                    Macho 
+                    <i class=" fas fa-mars fa-lg"></i>
+
+                        {% elif animal.sexo == 'F' %}
+                        Fêmea
+                        <i class="fas fa-venus fa-lg"></i>
+                        {% else %}
+                        Não especificado
+                        {% endif %}
+                    </p>
+
+                    <div class=" container product-price-block text-center">
+                    </div>
+                </div>
+                <div class="card-footer bg-light border-top-light-custom text-center">
+                    <a href="#" class="btn border-0 btn-primary btn-sm btn-block bg-warning">
                         {% comment %} <i class="fa fa-heart" aria-hidden="true"></i> {% endcomment %}
-                        <!-- <i class="far fa-heart fa-lg"></i> -->
-                        Detalhes
+                        <i class="fas fa-ban fa-lg"></i>
+                        Pausado pelo tutor
                     </a>
                 </div>
-                <!-- <div class="container product-price-block text-center">
-                    </div> -->
             </div>
 
-        </div>
+            {% elif animal.status_adocao_animal == 'AD'%}
 
-        {% elif animal.status_adocao_animal == 'P'%}
-
-        <div class="card text-white bg-warning">
-            <a href="#">
-                <img class="card-img-top" src="{{animal.imagem.url}}" alt="{{ animal.nome_animal }}"
-                    style="height: 265px; object-fit: cover;">
-            </a>
-            <div class="card-body">
-                <h5 class="card-title">{{ animal.nome_animal }}</h5>
-                <p class="card-text mb-2"">Raça: {{ animal.raca }} |      
+            <div class="card text-white bg-success">
+                <a href="#">
+                    <img class="card-img-top" src="{{animal.imagem.url}}" alt="{{ animal.nome_animal }}"
+                        style="height: 265px; object-fit: cover;">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ animal.nome_animal }}</h5>
+                    <p class="card-text mb-2"">Raça: {{ animal.raca }} |      
                     {% if animal.sexo == 'M' %}
                     Macho 
                     <i class=" fas fa-mars fa-lg"></i>
 
-                    {% elif animal.sexo == 'F' %}
-                    Fêmea
-                    <i class="fas fa-venus fa-lg"></i>
-                    {% else %}
-                    Não especificado
-                    {% endif %}
-                </p>
+                        {% elif animal.sexo == 'F' %}
+                        Fêmea
+                        <i class="fas fa-venus fa-lg"></i>
+                        {% else %}
+                        Não especificado
+                        {% endif %}
+                    </p>
 
-                <div class=" container product-price-block text-center">
+                    <div class=" container product-price-block text-center">
+                    </div>
+                </div>
+                <div class="card-footer bg-light border-top-light-custom text-center">
+                    <a href="#" class="btn border-0 btn-primary btn-sm btn-block bg-success">
+                        {% comment %} <i class="fa fa-heart" aria-hidden="true"></i> {% endcomment %}
+                        <i class="fas fa-hand-holding-heart fa-lg"></i>
+                        Animal adotado
+                    </a>
                 </div>
             </div>
-            <div class="card-footer bg-light border-top-light-custom text-center">
-                <a href="#" class="btn border-0 btn-primary btn-sm btn-block bg-warning">
-                    {% comment %} <i class="fa fa-heart" aria-hidden="true"></i> {% endcomment %}
-                    <i class="fas fa-ban fa-lg"></i>
-                    Pausado pelo tutor
-                </a>
-            </div>
-        </div>
-
-        {% elif animal.status_adocao_animal == 'AD'%}
-
-        <div class="card text-white bg-success">
-            <a href="#">
-                <img class="card-img-top" src="{{animal.imagem.url}}" alt="{{ animal.nome_animal }}"
-                    style="height: 265px; object-fit: cover;">
-            </a>
-            <div class="card-body">
-                <h5 class="card-title">{{ animal.nome_animal }}</h5>
-                <p class="card-text mb-2"">Raça: {{ animal.raca }} |      
-                    {% if animal.sexo == 'M' %}
-                    Macho 
-                    <i class=" fas fa-mars fa-lg"></i>
-
-                    {% elif animal.sexo == 'F' %}
-                    Fêmea
-                    <i class="fas fa-venus fa-lg"></i>
-                    {% else %}
-                    Não especificado
-                    {% endif %}
-                </p>
-
-                <div class=" container product-price-block text-center">
-                </div>
-            </div>
-            <div class="card-footer bg-light border-top-light-custom text-center">
-                <a href="#" class="btn border-0 btn-primary btn-sm btn-block bg-success">
-                    {% comment %} <i class="fa fa-heart" aria-hidden="true"></i> {% endcomment %}
-                    <i class="fas fa-hand-holding-heart fa-lg"></i>
-                    Animal adotado
-                </a>
-            </div>
-        </div>
-        {%endif%}
-
-        {% endfor %}
-
-    </div>
-
-    <div class="form-inline d-flex justify-content-center mb-3 mt-5">
-        {% if page.has_other_pages %}
-        <div class="btn-group" role="group" aria-label="Item pagination">
-
-            {% if page.has_previous %}
-
-            {%if request.GET.obj%}
-            <a href="?page={{ page.previous_page_number }}&obj={{request.GET.obj}}"
-                class="btn btn-outline-primary">&laquo;</a>
-            {% else %}
-            <a href="?page={{ page.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
-            {% endif %}
-
-            {% endif %}
-
-            {% for page_num in page.paginator.page_range %}
-            {% if request.GET.obj %}
-            {% if page.number == page_num %}
-            <button class="btn btn-outline-primary active">
-                <span>{{ page_num }} <span class="sr-only">(Atual)</span></span>
-            </button>
-            {% else %}
-            <a href="?page={{ page_num }}&obj={{request.GET.obj}}" class="btn btn-outline-primary">
-                {{ page_num }}
-            </a>
-            {% endif %}
-
-            {%else%}
-
-            {% if page.number == page_num %}
-            <button class="btn btn-outline-primary active">
-                <span>{{ page_num }} <span class="sr-only">(Atual)</span></span>
-            </button>
-            {% else %}
-            <a href="?page={{ page_num }}" class="btn btn-outline-primary">
-                {{ page_num }}
-            </a>
-            {% endif %}
-
-            {% endif %}
+            {%endif%}
 
             {% endfor %}
 
-            {% if page.has_next %}
-            {% if obj %}
-            <a href="?page={{ page.next_page_number }}&obj={{ obj }}" class="btn btn-outline-primary">&raquo;</a>
-            {% else %}
-            <a href="?page={{ page.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
-            {% endif %}
-            {% endif %}
-
-
-            {% comment %} {% if page.has_next %}
-            {% if request.GET.obj %}
-            <a href="?page={{ page.next_page_number }}&obj={{request.GET.obj}}"
-                class="btn btn-outline-primary">&raquo;</a>
-            {% else %}
-            <a href="?page={{ page.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
-            {% endif %}
-            {% endif %} {% endcomment %}
         </div>
-        {% endif %}
 
-        {% comment %} {% if page.has_previous %}
-        <a href="{% url 'animal:lista' %}?page={{ page.previous_page_number }}">Anterior</a>
-        {% endif %}
+        <div class="form-inline d-flex justify-content-center mb-3 mt-5">
+            {% if page.has_other_pages %}
+            <div class="btn-group" role="group" aria-label="Item pagination">
 
-        <span class="current-page">{{ page.number }}</span>
+                {% if page.has_previous %}
 
-        {% if page.has_next %}
-        <a href="{% url 'animal:lista' %}?page={{ page.next_page_number }}">Próxima</a>
+                {%if request.GET.obj%}
+                <a href="?page={{ page.previous_page_number }}&obj={{request.GET.obj}}"
+                    class="btn btn-outline-primary">&laquo;</a>
+                {% else %}
+                <a href="?page={{ page.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+                {% endif %}
 
-        {% endif %}
-        {% endcomment %}
+                {% endif %}
+
+                {% for page_num in page.paginator.page_range %}
+                {% if request.GET.obj %}
+                {% if page.number == page_num %}
+                <button class="btn btn-outline-primary active">
+                    <span>{{ page_num }} <span class="sr-only">(Atual)</span></span>
+                </button>
+                {% else %}
+                <a href="?page={{ page_num }}&obj={{request.GET.obj}}" class="btn btn-outline-primary">
+                    {{ page_num }}
+                </a>
+                {% endif %}
+
+                {%else%}
+
+                {% if page.number == page_num %}
+                <button class="btn btn-outline-primary active">
+                    <span>{{ page_num }} <span class="sr-only">(Atual)</span></span>
+                </button>
+                {% else %}
+                <a href="?page={{ page_num }}" class="btn btn-outline-primary">
+                    {{ page_num }}
+                </a>
+                {% endif %}
+
+                {% endif %}
+
+                {% endfor %}
+
+                {% if page.has_next %}
+                {% if obj %}
+                <a href="?page={{ page.next_page_number }}&obj={{ obj }}" class="btn btn-outline-primary">&raquo;</a>
+                {% else %}
+                <a href="?page={{ page.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+                {% endif %}
+                {% endif %}
+
+
+                {% comment %} {% if page.has_next %}
+                {% if request.GET.obj %}
+                <a href="?page={{ page.next_page_number }}&obj={{request.GET.obj}}"
+                    class="btn btn-outline-primary">&raquo;</a>
+                {% else %}
+                <a href="?page={{ page.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+                {% endif %}
+                {% endif %} {% endcomment %}
+            </div>
+            {% endif %}
+
+            {% comment %} {% if page.has_previous %}
+            <a href="{% url 'animal:lista' %}?page={{ page.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            <span class="current-page">{{ page.number }}</span>
+
+            {% if page.has_next %}
+            <a href="{% url 'animal:lista' %}?page={{ page.next_page_number }}">Próxima</a>
+
+            {% endif %}
+            {% endcomment %}
+        </div>
     </div>
 </div>
-
 {%endblock%}

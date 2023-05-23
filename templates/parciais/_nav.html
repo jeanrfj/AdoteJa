@@ -3,10 +3,10 @@
   <div class="container">
     <!-- <a class="navbar-brand" href="{% url 'index' %}">AdoteJá</a> -->
 
-    <a class="navbar-brand" href="/"> <img src="/static/img/logo-adoteja.svg" alt="">
+    <a class="navbar-brand mr-5" href="/"> <img src="/static/img/logo-adoteja.svg" alt="">
     </a>
 
-    <div class="ml-auto d-flex">
+    <div class="mr-auto d-flex">
       <a class="navbar-brand" href="/animais">Animais</a>
       <a class="navbar-brand" href="/sobre">Sobre</a>
       <a class="navbar-brand" href="/contato">Contato</a>
@@ -14,17 +14,24 @@
 
     {% if not user.is_authenticated %}
 
-    <div class="dropdown">
+    <!-- <div class="dropdown">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
         <span class="navbar-toggler-icon"></span>
       </a>
 
       <div class="dropdown-menu">
         <li><a class="dropdown-item" href="/conta/login">Login</a></li>
-        <li><a class="dropdown-item" href="{% url 'cadastro' %}">Cadastrar</a></li>
+        <li><a class="dropdown-item">Cadastrar</a></li>
       </div>
-    </div>
+    </div> -->
 
+    <a style="color: white;" href="/conta/login" class="navbar-brand">
+      Login
+    </a>
+    <a style="background-color: orange; color: white;" href="{% url 'cadastro' %}"
+      class="d-flex justify-content-center align-items-center btn py-2">
+      Cadastrar
+    </a>
 
     {% else %}
 
@@ -40,6 +47,8 @@
         <li> <a class="dropdown-item" href="/conta/logout/">Logout</a></li>
       </div>
     </div>
+
+
 
     {% endif %}
 

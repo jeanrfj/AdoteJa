@@ -1,163 +1,167 @@
 {% extends 'base.html' %}
 {%block conteudo%}
 
-<div class="d-flex justify-content-between mb-4 mt-5">
-    <h1 class="text-center m-0 lh-1">Animais Cadastrados</h1>
-    <a class="btn btn-primary d-flex justify-content-center align-items-center" href="cadastrar/"
-        role="button">Cadastrar</a>
-</div>
-<div class="d-flex align-items-center justify-content-between mb-2">
+<div class="container p-5 bg-white" style="min-height: 700px; box-shadow: 8px 10px 20px #dae0eb99;">
 
-    <form method="get" action="{% url 'dashboard-animais' %}" class="form-inline d-flex justify-content-center mr-2"
-        style="width: 100%;">
-        <input class="form-control mr-sm-2" type="search" name="obj" value="{{request.GET.obj}}" placeholder="Pesquisar"
-            aria-label="Pesquisar" autocomplete="off" style="flex-grow: 1;">
-        {%if request.GET.obj%}
-        <a href="{% url 'dashboard-animais' %}" class="btn btn-light border mr-sm-2">Resetar </a>
-        {%endif%}
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+    <div class="d-flex justify-content-between mb-4">
+        <h1 class="text-center m-0 lh-1">Animais Cadastrados</h1>
+        <a class="btn btn-primary d-flex justify-content-center align-items-center" href="cadastrar/"
+            role="button">Cadastrar</a>
+    </div>
+    <div class="d-flex align-items-center justify-content-between mb-2">
 
-
-    </form>
-
-
-</div>
-{% if page %}
-<table class="table">
-    <thead>
-        <tr>
-
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Espécie</th>
-            <th>Sexo</th>
-            <th>Raça</th>
-            <th>status</th>
-            <th>Opções</th>
-
-        </tr>
-    </thead>
-    <tbody>
+        <form method="get" action="{% url 'dashboard-animais' %}" class="form-inline d-flex justify-content-center mr-2"
+            style="width: 100%;">
+            <input class="form-control mr-sm-2" type="search" name="obj" value="{{request.GET.obj}}"
+                placeholder="Pesquisar" aria-label="Pesquisar" autocomplete="off" style="flex-grow: 1;">
+            {%if request.GET.obj%}
+            <a href="{% url 'dashboard-animais' %}" class="btn btn-light border mr-sm-2">Resetar </a>
+            {%endif%}
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
 
 
-        {% for animal in page %}
-        <tr>
-            <td>{{ animal.id }}</td>
+        </form>
 
-            <td style="width: 100%;">{{ animal.nome_animal }}</td>
-            <td>
-                {% if animal.especie == 'C' %}
-                Cachorro
-                {% elif animal.especie == 'G' %}
-                Gato
-                {%endif%}
-            </td>
-            <td>
-                {%if animal.sexo == 'M'%}
-                Macho
-                {%elif animal.sexo == 'F'%}
-                Fêmea
-                {%endif%}
-            </td>
-            <td>{{ animal.raca }}</td>
-            <td>{{ animal.status_adocao_animal }}</td>
-            <td>
-                <div class="d-flex" style="gap: 10px">
-                    <a href="{% url 'dashboard-animais-editar' animal.id %}"
-                        class="btn border-0 btn-primary text-white">
-                        Editar
 
-                    </a>
+    </div>
+    {% if page %}
+    <table class="table">
+        <thead>
+            <tr>
 
-                    <a class="btn border-0 btn-primary text-white bg-warning"
-                        href="{% url 'dashboard-interessados-animal' animal.id %}" style="color:red">Interessados</a>
-                    <a class="btn border-0 btn-primary text-white bg-danger" href="#"
-                        onclick="excluirAnimal({{ animal.id }})" style="color:red">Excluir</a>
-                </div>
-            </td>
-            </td>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Espécie</th>
+                <th>Sexo</th>
+                <th>Raça</th>
+                <th>status</th>
+                <th>Opções</th>
 
-            {% comment %} <td>
-                <div class="form-check form-switch">
+            </tr>
+        </thead>
+        <tbody>
 
-                    <input class="form-check-input" type="checkbox" id="ativo-checkbox" {% if animal.ativo %}checked{%
-                        endif %}>
-                    <label class="form-check-label" for="ativo-checkbox">Disponível para adoção</label>
 
-                </div>
+            {% for animal in page %}
+            <tr>
+                <td>{{ animal.id }}</td>
 
-            </td> {% endcomment %}
-        </tr>
-        {% endfor %}
+                <td style="width: 100%;">{{ animal.nome_animal }}</td>
+                <td>
+                    {% if animal.especie == 'C' %}
+                    Cachorro
+                    {% elif animal.especie == 'G' %}
+                    Gato
+                    {%endif%}
+                </td>
+                <td>
+                    {%if animal.sexo == 'M'%}
+                    Macho
+                    {%elif animal.sexo == 'F'%}
+                    Fêmea
+                    {%endif%}
+                </td>
+                <td>{{ animal.raca }}</td>
+                <td>{{ animal.status_adocao_animal }}</td>
+                <td>
+                    <div class="d-flex" style="gap: 10px">
+                        <a href="{% url 'dashboard-animais-editar' animal.id %}"
+                            class="btn border-0 btn-primary text-white">
+                            Editar
 
-        <script>
-            function excluirAnimal(animalId) {
-                if (confirm("Tem certeza que deseja excluir este animal?")) {
-                    window.location.href = "{% url 'excluir-animal' animal_id=0 %}".replace('0', animalId);
+                        </a>
+
+                        <a class="btn border-0 btn-primary text-white bg-warning"
+                            href="{% url 'dashboard-interessados-animal' animal.id %}"
+                            style="color:red">Interessados</a>
+                        <a class="btn border-0 btn-primary text-white bg-danger" href="#"
+                            onclick="excluirAnimal({{ animal.id }})" style="color:red">Excluir</a>
+                    </div>
+                </td>
+                </td>
+
+                {% comment %} <td>
+                    <div class="form-check form-switch">
+
+                        <input class="form-check-input" type="checkbox" id="ativo-checkbox" {% if animal.ativo
+                            %}checked{% endif %}>
+                        <label class="form-check-label" for="ativo-checkbox">Disponível para adoção</label>
+
+                    </div>
+
+                </td> {% endcomment %}
+            </tr>
+            {% endfor %}
+
+            <script>
+                function excluirAnimal(animalId) {
+                    if (confirm("Tem certeza que deseja excluir este animal?")) {
+                        window.location.href = "{% url 'excluir-animal' animal_id=0 %}".replace('0', animalId);
+                    }
                 }
-            }
-        </script>
+            </script>
 
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-{% else %}
-<div class="alert alert-info" role="alert">
-    Você não possui animais cadastrados.
-</div>
-{% endif %}
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        Você não possui animais cadastrados.
+    </div>
+    {% endif %}
 
-<div class="form-inline d-flex justify-content-center mb-3">
-    {% if page.has_other_pages %}
-    <div class="btn-group" role="group" aria-label="Item pagination">
+    <div class="form-inline d-flex justify-content-center mb-3">
+        {% if page.has_other_pages %}
+        <div class="btn-group" role="group" aria-label="Item pagination">
 
-        {% if page.has_previous %}
+            {% if page.has_previous %}
 
-        {%if request.GET.obj%}
-        <a href="?page={{ page.previous_page_number }}&obj={{request.GET.obj}}"
-            class="btn btn-outline-primary">&laquo;</a>
-        {% else %}
-        <a href="?page={{ page.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
-        {% endif %}
+            {%if request.GET.obj%}
+            <a href="?page={{ page.previous_page_number }}&obj={{request.GET.obj}}"
+                class="btn btn-outline-primary">&laquo;</a>
+            {% else %}
+            <a href="?page={{ page.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+            {% endif %}
 
-        {% endif %}
+            {% endif %}
 
-        {% for page_num in page.paginator.page_range %}
-        {% if request.GET.obj %}
-        {% if page.number == page_num %}
-        <button class="btn btn-outline-primary active">
-            <span>{{ page_num }} <span class="sr-only">(Atual)</span></span>
-        </button>
-        {% else %}
-        <a href="?page={{ page_num }}&obj={{request.GET.obj}}" class="btn btn-outline-primary">
-            {{ page_num }}
-        </a>
-        {% endif %}
+            {% for page_num in page.paginator.page_range %}
+            {% if request.GET.obj %}
+            {% if page.number == page_num %}
+            <button class="btn btn-outline-primary active">
+                <span>{{ page_num }} <span class="sr-only">(Atual)</span></span>
+            </button>
+            {% else %}
+            <a href="?page={{ page_num }}&obj={{request.GET.obj}}" class="btn btn-outline-primary">
+                {{ page_num }}
+            </a>
+            {% endif %}
 
-        {%else%}
+            {%else%}
 
-        {% if page.number == page_num %}
-        <button class="btn btn-outline-primary active">
-            <span>{{ page_num }} <span class="sr-only">(Atual)</span></span>
-        </button>
-        {% else %}
-        <a href="?page={{ page_num }}" class="btn btn-outline-primary">
-            {{ page_num }}
-        </a>
-        {% endif %}
+            {% if page.number == page_num %}
+            <button class="btn btn-outline-primary active">
+                <span>{{ page_num }} <span class="sr-only">(Atual)</span></span>
+            </button>
+            {% else %}
+            <a href="?page={{ page_num }}" class="btn btn-outline-primary">
+                {{ page_num }}
+            </a>
+            {% endif %}
 
-        {% endif %}
+            {% endif %}
 
-        {% endfor %}
+            {% endfor %}
 
-        {% if page.has_next %}
-        {% if obj %}
-        <a href="?page={{ page.next_page_number }}&obj={{ obj }}" class="btn btn-outline-primary">&raquo;</a>
-        {% else %}
-        <a href="?page={{ page.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
-        {% endif %}
-        {% endif %}
+            {% if page.has_next %}
+            {% if obj %}
+            <a href="?page={{ page.next_page_number }}&obj={{ obj }}" class="btn btn-outline-primary">&raquo;</a>
+            {% else %}
+            <a href="?page={{ page.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+            {% endif %}
+            {% endif %}
+        </div>
     </div>
     {% endif %}
     {%endblock%}

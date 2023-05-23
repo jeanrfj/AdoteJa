@@ -182,6 +182,7 @@ def dashboardAnimais(request):
              Q(sexo__icontains=obj[0]) |
              Q(peso__icontains=obj) |
              Q(castrado__icontains=obj) |
+             Q(status_adocao_animal__icontains=obj[0]) |
              Q(data_nascimento__icontains=obj)) & Q(user=request.user))
     else:
         animais_pag = Animal.objects.filter(user=request.user).order_by('-id')

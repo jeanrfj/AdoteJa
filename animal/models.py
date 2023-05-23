@@ -11,8 +11,8 @@ from django.utils import timezone
 
 class Animal(models.Model):
     status_adocao_animal = models.CharField(max_length=255,
-                                            default='A',
-                                            choices=(('A', 'Para Adocao'),
+                                            default='P',
+                                            choices=(('P', 'Para Adocao'),
                                                      ('AD', 'Adotado'),
                                                      ('', ''),),
                                             verbose_name='Status de Adoção do Animal'

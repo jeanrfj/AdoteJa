@@ -63,74 +63,7 @@
                 </div>
 
             </div>
-
-            {% elif animal.status_adocao_animal == 'P'%}
-
-            <div class="card text-white bg-warning">
-                <a href="#">
-                    <img class="card-img-top" src="{{animal.imagem.url}}" alt="{{ animal.nome_animal }}"
-                        style="height: 265px; object-fit: cover;">
-                </a>
-                <div class="card-body">
-                    <h5 class="card-title">{{ animal.nome_animal }}</h5>
-                    <p class="card-text mb-2"">Raça: {{ animal.raca }} |      
-                    {% if animal.sexo == 'M' %}
-                    Macho 
-                    <i class=" fas fa-mars fa-lg"></i>
-
-                        {% elif animal.sexo == 'F' %}
-                        Fêmea
-                        <i class="fas fa-venus fa-lg"></i>
-                        {% else %}
-                        Não especificado
-                        {% endif %}
-                    </p>
-
-                    <div class=" container product-price-block text-center">
-                    </div>
-                </div>
-                <div class="card-footer bg-light border-top-light-custom text-center">
-                    <a href="#" class="btn border-0 btn-primary btn-sm btn-block bg-warning">
-                        {% comment %} <i class="fa fa-heart" aria-hidden="true"></i> {% endcomment %}
-                        <i class="fas fa-ban fa-lg"></i>
-                        Pausado pelo tutor
-                    </a>
-                </div>
-            </div>
-
-            {% elif animal.status_adocao_animal == 'AD'%}
-
-            <div class="card text-white bg-success">
-                <a href="#">
-                    <img class="card-img-top" src="{{animal.imagem.url}}" alt="{{ animal.nome_animal }}"
-                        style="height: 265px; object-fit: cover;">
-                </a>
-                <div class="card-body">
-                    <h5 class="card-title">{{ animal.nome_animal }}</h5>
-                    <p class="card-text mb-2"">Raça: {{ animal.raca }} |      
-                    {% if animal.sexo == 'M' %}
-                    Macho 
-                    <i class=" fas fa-mars fa-lg"></i>
-
-                        {% elif animal.sexo == 'F' %}
-                        Fêmea
-                        <i class="fas fa-venus fa-lg"></i>
-                        {% else %}
-                        Não especificado
-                        {% endif %}
-                    </p>
-
-                    <div class=" container product-price-block text-center">
-                    </div>
-                </div>
-                <div class="card-footer bg-light border-top-light-custom text-center">
-                    <a href="#" class="btn border-0 btn-primary btn-sm btn-block bg-success">
-                        {% comment %} <i class="fa fa-heart" aria-hidden="true"></i> {% endcomment %}
-                        <i class="fas fa-hand-holding-heart fa-lg"></i>
-                        Animal adotado
-                    </a>
-                </div>
-            </div>
+            
             {%endif%}
 
             {% endfor %}

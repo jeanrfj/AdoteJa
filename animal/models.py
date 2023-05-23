@@ -13,7 +13,6 @@ class Animal(models.Model):
     status_adocao_animal = models.CharField(max_length=255,
                                             default='A',
                                             choices=(('A', 'Para Adocao'),
-                                                     ('P', 'Pausado'),
                                                      ('AD', 'Adotado'),
                                                      ('', ''),),
                                             verbose_name='Status de Adoção do Animal'

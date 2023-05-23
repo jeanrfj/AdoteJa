@@ -62,7 +62,19 @@
                     {%endif%}
                 </td>
                 <td>{{ animal.raca }}</td>
-                <td>{{ animal.status_adocao_animal }}</td>
+
+                <td style="width: 200%;">
+                    {% if animal.status_adocao_animal == 'A'%}
+                    <div class="d-inline-flex">    
+                    <i class="fas fa-pause-circle fa-lg mr-1 mt-1" style="color: #3b05ff;"></i>
+                    Pendente
+                    </div>
+                    {%elif animal.status_adocao_animal == 'AD'%}
+                    <div class="d-inline-flex">
+                    <i class="fas fa-check-square fa-lg mr-1 mt-1" style="color: #00ff1e;"></i> 
+                    Adotado
+                    </div> 
+                    {%endif%}
                 <td>
                     <div class="d-flex" style="gap: 10px">
                         <a href="{% url 'dashboard-animais-editar' animal.id %}"

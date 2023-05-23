@@ -12,22 +12,23 @@ class FormContato(forms.ModelForm):
         model = Contato
         exclude = ('mostrar', 'categoria')
 
+
 class EditarAnimal(forms.ModelForm):
     class Meta:
         model = Animal
         exclude = ('slug', 'user')
-        
+
 
 class FormCadastroAnimal(forms.ModelForm):
     # data_nascimento = forms.DateField(
     #     widget=forms.DateInput(attrs={'type': 'date'}),
     #     input_formats=['%Y-%m-%d'],
     #     help_text='YYYY-MM-DD'
-    # )    
+    # )
 
     class Meta:
         model = Animal
-        exclude = ('slug', 'user', 'ativo')
+        exclude = ('slug', 'user', 'status_adocao_animal')
 
         def __init__(self, *args, **kwargs):
             user = kwargs.pop('user')

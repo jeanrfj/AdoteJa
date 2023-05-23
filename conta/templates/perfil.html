@@ -7,7 +7,6 @@
 
 <form method="POST" class="pb-5">
   {% csrf_token %}
-  {% include 'parciais/_messages.html' %}
   <div class="form-group">
     <label>Nome</label>
     <input type="text" name="nome" value="{{ request.user.first_name }}" class="form-control">

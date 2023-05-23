@@ -4,7 +4,6 @@
 {% block conteudo %}
 <h1 class="mt-3 mb-3">Formulário para adotar {{ nome }} id = {{ id }}</h1>
 
-{% include 'parciais/_messages.html' %}
 
 <div class="container">
     <form action="/animais/registrar-interesse/{{id}}/" method="POST">

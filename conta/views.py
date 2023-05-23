@@ -34,6 +34,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
+    messages.success(request, 'Você fez logout com sucesso.')
     return redirect('/conta/login/')
 
 

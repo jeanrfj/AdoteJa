@@ -14,12 +14,12 @@
     <tr>
       <th>Nome</th>
       <th>Animal</th>
-      <th>Endereço</th>
-      <th>Data de Nascimento</th>
+      <!-- <th>Endereço</th> -->
+      <!-- <th>Data de Nascimento</th> -->
       <th>Telefone</th>
       <th>Email</th>
-      <th>Data de Criação</th>
-      <th>Mensagem</th>
+      <th>Data</th>
+      <th style="max-width: 100px;">Mensagem</th>
     </tr>
   </thead>
   <tbody>
@@ -27,12 +27,16 @@
     <tr>
       <td>{{ interessado.nome }}</td>
       <td>{{ interessado.animal }}</td>
-      <td>{{ interessado.endereco }}</td>
-      <td>{{ interessado.data_de_nascimento }}</td>
+      <!-- <td>{{ interessado.endereco }}</td> -->
+      <!-- <td>{{ interessado.data_de_nascimento }}</td> -->
       <td>{{ interessado.telefone }}</td>
       <td>{{ interessado.email }}</td>
       <td>{{ interessado.data_criacao }}</td>
-      <td>{{ interessado.mensagem }}</td>
+      <td style="max-width: 200px;">
+        <p class="p-0" style="overflow: scroll;">
+          {{ interessado.mensagem }}
+        </p>
+      </td>
     </tr>
     {% endfor %}
   </tbody>

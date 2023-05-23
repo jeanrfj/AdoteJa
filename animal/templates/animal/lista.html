@@ -23,7 +23,7 @@
 
         {%for animal in page.object_list%}
         {%if animal.status_adocao_animal == 'A'%}
-        <div class="shadow p-3 bg-white rounded" style="width: 30%;">
+        <div class="shadow p-3 bg-white rounded" style="width: 334px;">
             {%if animal.imagem %} <!--VERRIFICA SE TEM IMAGEM-->
             <!--#TODO:DEFINIR COMO VOU ACESSAR A OUTRA CLASSE COM O RESTO DAS FOTOS-->
             <a href="{{animal.slug}}">

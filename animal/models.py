@@ -21,7 +21,7 @@ class Animal(models.Model):
     nome_animal = models.CharField(max_length=255)
     especie = models.CharField(max_length=50,
                                default='',
-                               choices=(('C', 'Cacharro'),
+                               choices=(('C', 'Cachorro'),
                                         ('G', 'Gato'),
                                         ('', ''),))
     slug = models.SlugField(unique=True, blank=True, null=True)

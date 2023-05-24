@@ -26,7 +26,7 @@
             <div class="shadow p-3 bg-white rounded" style="width: 334px;">
                 {%if animal.imagem %} <!--VERRIFICA SE TEM IMAGEM-->
                 <!--#TODO:DEFINIR COMO VOU ACESSAR A OUTRA CLASSE COM O RESTO DAS FOTOS-->
-                <a href="{{animal.slug}}">
+                <a href="/animais/{{animal.id}}">
                     <img class="card-img-top" src="{{animal.imagem.url}}" alt="{{ animal.nome_animal }}"
                         style="height: 265px; object-fit: cover;">
                 </a>
@@ -37,7 +37,7 @@
                     <h5 class="card-title my-2">{{ animal.nome_animal }}</h5>
                     <p class="card-text mb-2">
                         <!-- Raça:  |   -->
-                        {{ animal.raca }}    
+                        {{ animal.raca }}
                         {% if animal.sexo == 'M' %}
                         <!-- Macho  -->
                         <i class=" fas fa-mars fa-lg"></i>
@@ -52,7 +52,7 @@
 
 
                     <div>
-                        <a href="{{animal.slug}}" class="btn btn-primary btn-sm btn-block">
+                        <a href="/animais/{{animal.id}}" class="btn btn-primary btn-sm btn-block">
                             {% comment %} <i class="fa fa-heart" aria-hidden="true"></i> {% endcomment %}
                             <!-- <i class="far fa-heart fa-lg"></i> -->
                             Detalhes
@@ -63,7 +63,7 @@
                 </div>
 
             </div>
-            
+
             {%endif%}
 
             {% endfor %}

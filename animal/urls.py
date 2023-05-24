@@ -5,7 +5,8 @@ app_name = 'animal'
 
 urlpatterns = [
     path('', views.ListaAnimal, name='lista'),
-    path('<slug>', views.DetalheAnimal.as_view(), name='detalheanimal'),
+    #     path('<slug>', views.DetalheAnimal.as_view(), name='detalheanimal'),
+    path('<int:id_animal>/', views.detalheAnimal, name='detalheanimal'),
     path('interesse/<int:id>/<str:nome>/',
          views.cadastroDeInteresse, name='interesse'),
     #     path('registrar-interesse/<str:nome>/',

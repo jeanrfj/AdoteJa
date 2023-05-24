@@ -34,12 +34,7 @@
             </div>
             <div>
 
-                Idade: {{ animal.data_nascimento}}
-            </div>
-
-            <div>
-
-                Nasc: {{ animal.data_nascimento}}
+                Idade: {{idade}}
             </div>
 
             <div>
@@ -68,12 +63,7 @@
             </div>
 
             <div>
-
-                Cor:{{ animal.cor}}
-            </div>
-            <div>
-                Descrição:
-                {{ animal.descricao}}
+                Cor: {{ animal.cor}}
             </div>
 
             <div>
@@ -88,6 +78,14 @@
                 {%endif%}
 
             </div>
+
+            <div>
+                Descrição:
+                {{ animal.descricao}}
+            </div>
+
+
+
 
             <!--#TODO: MANEIRA DE ADICIONAR LINKS PARA OUTRAS PAGINAS-->
             <form action="interesse/{{ animal.id }}/{{ animal.nome_animal }}" id="form-add-to-cart">

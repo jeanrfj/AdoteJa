@@ -8,6 +8,7 @@ from . import models
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Q
+from datetime import date
 
 
 """ class ListaAnimal(ListView):
@@ -45,6 +46,21 @@ class DetalheAnimal(DetailView):
     model = models.Animal
     template_name = 'animal/detalhe.html'
     slug_url_kwarg = 'slug'
+
+
+def detalheAnimal(request, id_animal):
+    animal = get_object_or_404(Animal, id=id_animal)
+    hoje = date.today()
+    nascimentoAnimal = animal.data_nascimento
+
+    idade = hoje.year - nascimentoAnimal.year
+
+    # Verifica se o aniversário do animal já ocorreu este ano
+    if hoje.month < nascimentoAnimal.month or (hoje.month == nascimentoAnimal.month and hoje.day < nascimentoAnimal.day):
+        idade -= 1
+
+    if request.method != 'POST':
+        return render(request, 'animal/detalhe.html', {'animal': animal, 'idade': idade})
 
 
 class AdicionarAnimal(View):

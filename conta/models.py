@@ -10,7 +10,7 @@ from django import forms
 class FormContato(forms.ModelForm):
     class Meta:
         model = Contato
-        exclude = ('mostrar', 'categoria')
+        exclude = ('mostrar', 'categoria',)
 
 
 class EditarAnimal(forms.ModelForm):

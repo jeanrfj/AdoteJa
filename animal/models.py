@@ -91,9 +91,12 @@ class Animal(models.Model):
         if self.imagem:
             self.resize_image(self.imagem, max_image_size)
 
-        class Meta:
-            verbose_name = 'Animal'
-            verbose_name_plural = 'Animais'
+    def __str__(self):
+        return self.nome_animal
+
+    class Meta:
+        verbose_name = 'Animal'
+        verbose_name_plural = 'Animais'
 
 
 class Foto(models.Model):
@@ -110,7 +113,7 @@ class Foto(models.Model):
 class FormContato(forms.ModelForm):
     class Meta:
         model = Contato
-        exclude = ('mostrar', 'categoria',)
+        exclude = ('mostrar', 'categoria')
 
 
 class Interessados(models.Model):

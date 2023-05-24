@@ -43,13 +43,12 @@ def cadastro(request):
         return render(request, 'cadastro.html')
 
     nome = request.POST.get('nome')
-    sobrenome = request.POST.get('sobrenome')
     email = request.POST.get('email')
     usuario = request.POST.get('usuario')
     senha = request.POST.get('senha')
     senha2 = request.POST.get('senha2')
 
-    if not nome or not sobrenome or not email or not usuario or not senha \
+    if not nome or not email or not usuario or not senha \
             or not senha2:
         messages.error(request, 'Nenhum campo pode estar vazio.')
         return render(request, 'cadastro.html')
@@ -84,7 +83,7 @@ def cadastro(request):
 
     user = User.objects.create_user(username=usuario, email=email,
                                     password=senha, first_name=nome,
-                                    last_name=sobrenome)
+                                    )
     user.save()
     return redirect('login')
 
@@ -100,13 +99,12 @@ def excluir_animal(request, animal_id):
 def atualizarCadastro(request):
     if request.method == 'POST':
         nome = request.POST.get('nome')
-        sobrenome = request.POST.get('sobrenome')
         email = request.POST.get('email')
         usuario = request.POST.get('usuario')
         senha = request.POST.get('senha')
         senha2 = request.POST.get('senha2')
 
-        if not nome or not sobrenome or not email or not usuario:
+        if not nome or not email or not usuario:
             messages.error(request, 'Nenhum campo pode estar vazio.')
             return render(request, 'perfil.html')
 
@@ -118,7 +116,6 @@ def atualizarCadastro(request):
 
         user = request.user
         user.first_name = nome
-        user.last_name = sobrenome
         user.email = email
         user.username = usuario
 

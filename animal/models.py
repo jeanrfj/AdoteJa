@@ -1,3 +1,5 @@
+import random
+import string
 from django.db import models
 from PIL import Image
 import os
@@ -23,7 +25,7 @@ class Animal(models.Model):
                                choices=(('C', 'Cachorro'),
                                         ('G', 'Gato'),
                                         ('', ''),))
-    slug = models.SlugField(unique=True, blank=True, null=True)
+    slug = models.SlugField(unique=False, blank=True, null=True)
     raca = models.CharField(max_length=50)
     imagem = models.ImageField(
         upload_to='animal_imagens/%Y/%m', blank=True, null=True)
@@ -50,9 +52,7 @@ class Animal(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='animais')
 
-    # TODO:VARIAVEL TEMPORARIA, FALTA DEFINIR COMO ACESSAR A OUTRA CLASSE COM AS FOTOS
-
-    @staticmethod  # TODO: REDIMENCIONA IMAGENS ADICIONADAS
+    @staticmethod
     def resize_image(img, new_width=800):
         img_full_path = os.path.join(settings.MEDIA_ROOT, img.name)
         img_pil = Image.open(img_full_path)
@@ -72,11 +72,17 @@ class Animal(models.Model):
             optimize=True,
             quality=50
         )
-        print('Imagem foi redimencionada com Sucesso!')
+        print('Imagem foi redimensionada com Sucesso!')
 
     def save(self, *args, **kwargs):
         if not self.slug:  # AUTOMATIZA A CRIAÇÃO DE SLUG NO CADASTRO
             slug = f'{slugify(self.nome_animal)}'
+            base_slug = slug
+            count = 1
+            while Animal.objects.filter(slug=slug).exists():
+                # Se houver um slug duplicado, adiciona um número aleatório ao final do slug
+                slug = f'{base_slug}-{"".join(random.choices(string.ascii_letters + string.digits, k=6))}'
+                count += 1
             self.slug = slug
 
         super().save(*args, **kwargs)
@@ -85,18 +91,14 @@ class Animal(models.Model):
         if self.imagem:
             self.resize_image(self.imagem, max_image_size)
 
-    def __str__(self):
-        return self.nome_animal
-
-    class Meta:
-        verbose_name = 'Animal'
-        verbose_name_plural = 'Animais'
+        class Meta:
+            verbose_name = 'Animal'
+            verbose_name_plural = 'Animais'
 
 
 class Foto(models.Model):
 
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
-    # foto=models.ImageField(upload_to='animal_imagens/%Y/%m',blank=True,null=True)
     nome_foto = models.CharField(max_length=255, blank=True, null=True)
     url = models.CharField(max_length=2000, blank=True, null=True)
     data_criacao = models.DateField(auto_now_add=True)

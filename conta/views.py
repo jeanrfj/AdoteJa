@@ -29,12 +29,12 @@ def login(request):
     else:
         auth.login(request, user)
         messages.success(request, 'Você fez login com sucesso.')
-        return render(request, 'home.html')
+        return redirect('dashboard-animais')
 
 
 def logout(request):
     auth.logout(request)
-    messages.success(request, 'Você fez logout com sucesso.')
+    # messages.success(request, 'Você fez logout com sucesso.')
     return redirect('/conta/login/')
 
 
@@ -219,7 +219,7 @@ def dashboardAnimaisCadastrar(request):
             animal.user = request.user
             animal.save()
             messages.success(request, 'Animal cadastrado com sucesso.')
-            return redirect('animal:lista')
+            return redirect('/conta/dashboard/animais')
         else:
             messages.error(request, 'erro ao cadastrar animal !')
     else:

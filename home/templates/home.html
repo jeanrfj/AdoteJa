@@ -5,21 +5,58 @@
 {%block conteudo%}
 
 {% csrf_token %}
-<div class="container bg-white p-5" style="min-height: 700px; box-shadow: 8px 10px 20px #dae0eb99;">
-    <h3 class="text-center" style="color: orange;">Por que adotar?</h3>
-    <div class="d-flex justify-content-between" style="gap: 25px">
-        <div class="p-4 rounded " style="width:30%; box-shadow: 8px 10px 20px #dae0eb99;">
-            <b style="color: #0896d7;"> Nesse exato momento,</b> <br>
-            existem milhares de doguinhos e gatinhos esperando um humano para chamar de seu.
+
+<div class="container bg-white p-0 pb-3" style="min-height: 700px; box-shadow: 8px 10px 20px #dae0eb99;">
+
+    <div style="width: 100%; height: 400px; position: relative;" class="mb-4">
+        <img src="/static/img/banner-pet.png" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);"
+            class="d-flex justify-content-center align-items-center flex-column">
+            <h3 style="color: #ffffff; white-space: nowrap;" class="text-center">
+                Faça a diferença, adote um pet hoje!
+            </h3>
+            <a href="/animais" class="btn btn-primary" style="max-width: 250px;">Quero adotar</a>
         </div>
-        <div class="p-4 rounded " style="width:30%; box-shadow: 8px 10px 20px #dae0eb99;">
-            <b style="color: #0896d7;"> E não há recompensa maior</b> <br>
-            do que vê-los se tornando aquela coisinha alegre e saudável depois de uma boa dose de cuidado e carinho.
-        </div>
-        <div class="p-4 rounded " style="width:30%; box-shadow: 8px 10px 20px #dae0eb99;">
-            <b style="color: #0896d7;"> Pensando bem, a pergunta é outra:</b> <br>
-            se você pode mudar o destino de um animal de rua, por que não faria isso?
+    </div>
+
+    <div class="container ">
+        <h3 class="text-center" style="color: orange;">Por que adotar?</h3>
+        <div class="d-flex justify-content-between" style="gap: 15px">
+
+            <div class="p-4 rounded d-flex align-items-center"
+                style=" box-shadow: 8px 10px 20px #dae0eb99; width: 32%;">
+                <div class="mr-2">
+                    <img src="/static/img/img-1.svg" alt="" style="width: 50px">
+                </div>
+                <div>
+                    <b style="color: #0896d7;"> Neste exato instante,
+                    </b> <br>
+                    há uma infinidade de cãezinhos e gatinhos aguardando ansiosamente por um humano para chamarem de
+                    seu.
+                </div>
+            </div>
+            <div class="p-4 rounded d-flex align-items-center"
+                style=" box-shadow: 8px 10px 20px #dae0eb99; width: 32%;">
+                <div class="mr-2">
+                    <img src="/static/img/img-2.svg" alt="" style="width: 50px">
+                </div>
+                <div>
+                    <b style="color: #0896d7;"> E não tem nada melhor</b> <br>
+                    do que ver eles ficarem super felizes e saudáveis depois de receberem muito amor e cuidado.
+                </div>
+            </div>
+            <div class="p-4 rounded d-flex align-items-center"
+                style=" box-shadow: 8px 10px 20px #dae0eb99; width: 32%;">
+                <div class="mr-2">
+                    <img src="/static/img/img-3.svg" alt="" style="width: 50px">
+                </div>
+                <div>
+                    <b style="color: #0896d7;"> Pensando bem, a pergunta é simples:</b> <br>
+                    se você pode mudar a vida de um animal de rua, por que não fazer isso?
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 {%endblock%}

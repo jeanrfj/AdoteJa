@@ -22,7 +22,7 @@
         <div class="d-flex flex-wrap justify-content-start" style="gap: 50px">
 
             {%for animal in page.object_list%}
-            {%if animal.status_adocao_animal == 'A'%}
+            {%if animal.status_adocao_animal == 'P'%}
             <div class="shadow p-3 bg-white rounded" style="width: 334px;">
                 {%if animal.imagem %} <!--VERRIFICA SE TEM IMAGEM-->
                 <!--#TODO:DEFINIR COMO VOU ACESSAR A OUTRA CLASSE COM O RESTO DAS FOTOS-->
@@ -35,7 +35,7 @@
 
                 <div>
                     <h5 class="card-title my-2">{{ animal.nome_animal }}</h5>
-                    <p class="card-text mb-2"">
+                    <p class="card-text mb-2">
                         <!-- Raça:  |   -->
                         {{ animal.raca }}    
                         {% if animal.sexo == 'M' %}

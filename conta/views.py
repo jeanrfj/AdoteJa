@@ -247,18 +247,17 @@ def dashboardAnimaisEditar(request, animal_id):
 
 
 def dashboardInteressados(request):
+    obj = request.GET.get('obj')
 
-    interessados = Interessados.objects.filter(
-        proprietario_id=request.user.id).order_by('-id')
-
-    paginator = Paginator(interessados, 20)
-
-    page = request.GET.get('p')
+    interessados = Interessados.objects.filter(proprietario=request.user).order_by('-id')
+    paginator = Paginator(interessados, 10)
+    page = request.GET.get('page')
     interessados = paginator.get_page(page)
-
     return render(request, 'interessados.html', {
         'interessados': interessados
     })
+
+
 
 
 def dashboardInteressadosEmUmAnimal(request, animal_id):

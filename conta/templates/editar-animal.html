@@ -1,25 +1,26 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-{%block titulo%}Dashboard de {{user}} | {%endblock%}
+{%block titulo%} Editar Animal | Adoteja {%endblock%}
 
 {% block conteudo %}
-<h1 class="mt-3 mb-3">Olá {{ user.first_name }} {{ user.last_name }}</h1>
-<p>
-    O seu nome de usuário é {{user}}.
-</p>
 
-<div class="container">
-    <form action="{%url 'dashboard-animais-editar' form.instance.id %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <table class="table">
+<div class="container p-5 bg-white">
+    <h1 class="mt-3 mb-3">Editar Animal</h1>
+
+
+    <div class="container">
+        <form action="{%url 'dashboard-animais-editar' form.instance.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
             {{ form|crispy }}
-            <tr>
-                <td colspan="2">
-                    <button type="submit" class="btn btn-primary">Enviar</button>
-                </td>
-            </tr>
-        </table>
-    </form>
+
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Atualizar</button>
+            </div>
+
+        </form>
+    </div>
+
 </div>
 
 {% endblock %}

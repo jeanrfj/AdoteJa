@@ -103,17 +103,6 @@ WSGI_APPLICATION = 'adoteja.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'projeto-integrador',
-        'USER': 'root',
-        'PASSWORD': '01020301',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
@@ -124,6 +113,17 @@ DATABASES = {
 #         'PORT': '3306',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'railway',
+        'USER': 'root',
+        'PASSWORD': '9z61IQJkX0YqixkUbNU9',
+        'HOST': 'containers-us-west-92.railway.app',
+        'PORT': '7133',
+    }
+}
 
 
 

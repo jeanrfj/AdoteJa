@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-between mb-4">
         <h1 class="text-center m-0 lh-1">Animais Cadastrados</h1>
         <a class="btn btn-primary d-flex justify-content-center align-items-center" href="cadastrar/"
-            role="button">Cadastrar</a>
+            role="button">Cadastrar Animal</a>
     </div>
     <div class="d-flex align-items-center justify-content-between mb-2">
 
@@ -65,15 +65,15 @@
 
                 <td style="width: 200%;">
                     {% if animal.status_adocao_animal == 'P'%}
-                    <div class="d-inline-flex">    
-                    <i class="fas fa-pause-circle fa-lg mr-1 mt-1" style="color: #3b05ff;"></i>
-                    Pendente
+                    <div class="d-inline-flex">
+                        <i class="fas fa-pause-circle fa-lg mr-1 mt-1" style="color: #3b05ff;"></i>
+                        Pendente
                     </div>
                     {%elif animal.status_adocao_animal == 'AD'%}
                     <div class="d-inline-flex">
-                    <i class="fas fa-check-square fa-lg mr-1 mt-1" style="color: #00ff1e;"></i> 
-                    Adotado
-                    </div> 
+                        <i class="fas fa-check-square fa-lg mr-1 mt-1" style="color: #00ff1e;"></i>
+                        Adotado
+                    </div>
                     {%endif%}
                 <td>
                     <div class="d-flex" style="gap: 10px">

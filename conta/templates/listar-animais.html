@@ -61,17 +61,17 @@
                     Fêmea
                     {%endif%}
                 </td>
-                <td>{{ animal.raca }}</td>
+                <td style="white-space: nowrap">{{ animal.raca }}</td>
 
                 <td style="width: 200%;">
                     {% if animal.status_adocao_animal == 'P'%}
                     <div class="d-inline-flex">
-                        <i class="fas fa-pause-circle fa-lg mr-1 mt-1" style="color: #3b05ff;"></i>
-                        Pendente
+                        <i class="fas fa-paw fa-lg mr-1 mt-1 text-primary"></i>
+                        Disponivel
                     </div>
                     {%elif animal.status_adocao_animal == 'AD'%}
                     <div class="d-inline-flex">
-                        <i class="fas fa-check-square fa-lg mr-1 mt-1" style="color: #00ff1e;"></i>
+                        <i class="fas fa-check-square fa-lg mr-1 mt-1 text-success"></i>
                         Adotado
                     </div>
                     {%endif%}

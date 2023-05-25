@@ -2,43 +2,50 @@
 
 {%block conteudo%}
 
+<head>
+    <style>
+        .linhas {
+            background-color: gray;
+        }
+    </style>
+</head>
+
 
 <div class="container p-5 bg-white">
-    <div class="row">
-        <div class="col-lg">
-            <div class="row no-gutters">
-                <div class="col-lg-12">
-                    {%if animal.imagem%}
+    <div class="row justify-content-around" style="gap: 30px">
+        <div class="col-8">
 
-                    <img class="img-fluid rounded" src="{{animal.imagem.url}}"
-                        style="width: 420px; height: 320px; object-fit: cover;">
+            {%if animal.imagem%}
 
-                    {%endif%}
-                </div>
-            </div>
+            <img class="img-fluid " src="{{animal.imagem.url}}"
+                style="width: 100%; height: 550px; object-fit: cover; border-radius: 1rem;">
+
+            {%endif%}
+
         </div>
 
-
-        <div class="col-lg">
-            <h3>{{ animal.nome_animal }}</h3>
-
-            <div>
-                {%if animal.especie == 'C'%}
+        <div class="col d-flex flex-column justify-content-between pb-3 py-3"
+            style="box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; border-radius: 1rem;">
+            <h3 style="color: orange; display: block; " class="text-center"> <b> {{ animal.nome_animal }} </b></h3>
+            <div class=" rounded px-4 " style="color: #1669c1;">
+                <b> Espécie: </b> {%if animal.especie == 'C'%}
                 Cachorro
                 {%else%}
                 Gato
                 {%endif%}
             </div>
-            <div>
-                Raça: {{ animal.raca}}
+            <div class=" rounded px-4 " style="color: #1669c1;">
+                <b>
+                    Raça:</b> {{ animal.raca}}
             </div>
-            <div>
-
-                Idade: {{idade}}
+            <div class=" rounded px-4 " style="color: #1669c1;">
+                <b>
+                    Idade:
+                </b> {{idade}}
             </div>
 
-            <div>
-                Castrado:
+            <div class=" rounded px-4 " style="color: #1669c1;">
+                <b> Castrado: </b>
                 {%if animal.castrado == 'S'%}
                 Sim
                 {%else%}
@@ -46,15 +53,13 @@
                 {%endif%}
 
             </div>
-
-            <div>
-
-                Peso: {{ animal.peso|floatformat:2|add:" kg" }}
+            <div class=" rounded px-4 " style="color: #1669c1;">
+                <b>
+                    Peso: </b>{{ animal.peso|floatformat:2|add:" kg" }}
             </div>
 
-
-            <div>
-                Sexo:
+            <div class=" rounded px-4 " style="color: #1669c1;">
+                <b> Sexo: </b>
                 {%if animal.sexo == 'M'%}
                 Macho
                 {%else%}
@@ -62,12 +67,12 @@
                 {%endif%}
             </div>
 
-            <div>
-                Cor: {{ animal.cor}}
+            <div class=" rounded px-4 " style="color: #1669c1;">
+                <b> Cor: </b> {{ animal.cor}}
             </div>
 
-            <div>
-                Porte:
+            <div class=" rounded px-4 " style="color: #1669c1;">
+                <b> Porte: </b>
 
                 {%if animal.porte == 'P'%}
                 Pequeno
@@ -79,19 +84,17 @@
 
             </div>
 
-            <div>
-                Descrição:
+
+            <div class=" rounded px-4 py-2" style="color: #1669c1;">
+                <b> Descrição: </b>
                 {{ animal.descricao}}
             </div>
 
-
-
-
             <!--#TODO: MANEIRA DE ADICIONAR LINKS PARA OUTRAS PAGINAS-->
             <form action="/animais/interesse/{{ animal.id }}/{{ animal.nome_animal }}" id="form-add-to-cart">
-                <button type="submit" class="btn btn-primary btn-block">
+                <button type="submit" class="btn btn-primary btn-block rounded-pill">
                     <i class="fa fa-heart" aria-hidden="true"></i>
-                    Quero adotar
+                    <b> QUERO ADOTAR </b>
                 </button>
             </form>
         </div>

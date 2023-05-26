@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Q
 from datetime import date
+from django.views.decorators.csrf import csrf_protect
 
 
 """ class ListaAnimal(ListView):
@@ -82,7 +83,7 @@ class Finalizar(View):
     def get(self, *args, **kwargs):
         return HttpResponse('Finalizar')
 
-
+@csrf_protect
 def cadastroDeInteresse(request, nome, id):
     if request.method != 'POST':
         return render(request, 'interesse.html', {'nome': nome, 'id': id})

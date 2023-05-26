@@ -25,10 +25,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-x^yxajy5$ab3ccxl^7q6me03xzq)593tzgpgp^a8ee&%@lvjhb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'web-production-a78f.up.railway.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',
+                 'web-production-a78f.up.railway.app']
 
 # Application definition
 
@@ -124,7 +125,6 @@ DATABASES = {
         'PORT': '7133',
     }
 }
-
 
 
 # Password validation

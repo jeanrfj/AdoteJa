@@ -28,7 +28,6 @@ SECRET_KEY = 'django-insecure-x^yxajy5$ab3ccxl^7q6me03xzq)593tzgpgp^a8ee&%@lvjhb
 DEBUG = False
 
 
-
 ALLOWED_HOSTS = ['localhost', '127.0.0.1',
                  'web-production-a78f.up.railway.app']
 
@@ -173,6 +172,13 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join('staticfiles')
 
+
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static')
+# ]
+# STATIC_ROOT = os.path.join('staticfiles')
+
 # Mensagens
 
 MESSAGE_TAGS = {
@@ -184,7 +190,7 @@ MESSAGE_TAGS = {
 }
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 
 
 # DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

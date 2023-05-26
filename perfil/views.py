@@ -9,13 +9,12 @@ from django.views.decorators.csrf import csrf_protect
 from . import models
 from . import forms
 
-@csrf_protect
+
 class BasePerfil(View):
     template_name = 'perfil/criar.html'
 
     def setup(self, *args, **kwargs):
         super().setup(*args, **kwargs)
-
 
         self.perfil = None
 
@@ -76,7 +75,8 @@ class Criar(BasePerfil):
         last_name = cleaned_data.get('last_name')
 
         if self.request.user.is_authenticated:
-            usuario = get_object_or_404(User, username=self.request.user.username)
+            usuario = get_object_or_404(
+                User, username=self.request.user.username)
             usuario.username = username
 
             if password:

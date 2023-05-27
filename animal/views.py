@@ -61,7 +61,10 @@ def detalheAnimal(request, id_animal):
         idade -= 1
 
     if request.method != 'POST':
-        return render(request, 'animal/detalhe.html', {'animal': animal, 'idade': idade})
+        # link = 'https://web-production-a78f.up.railway.app/'
+        link = 'http://127.0.0.1:8000'
+
+        return render(request, 'animal/detalhe.html', {'animal': animal, 'idade': idade, 'link': link})
 
 
 class AdicionarAnimal(View):
@@ -82,6 +85,7 @@ class Carrinho(View):
 class Finalizar(View):
     def get(self, *args, **kwargs):
         return HttpResponse('Finalizar')
+
 
 @csrf_protect
 def cadastroDeInteresse(request, nome, id):

@@ -25,14 +25,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-x^yxajy5$ab3ccxl^7q6me03xzq)593tzgpgp^a8ee&%@lvjhb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',
+                 'web-production-a78f.up.railway.app']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'contatos',
     'perfil',
     'conta',
@@ -60,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'adoteja.urls'
@@ -103,14 +106,25 @@ WSGI_APPLICATION = 'adoteja.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'projeto-integrador',
+#         'USER': 'root',
+#         'PASSWORD': '01020301',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'projeto-integrador',
+        'NAME': 'railway',
         'USER': 'root',
-        'PASSWORD': '01020301',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'PASSWORD': '9z61IQJkX0YqixkUbNU9',
+        'HOST': 'containers-us-west-92.railway.app',
+        'PORT': '7133',
     }
 }
 
@@ -152,6 +166,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static')
+# ]
+# STATIC_ROOT = os.path.join('staticfiles')
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'templates/static')
@@ -168,16 +188,17 @@ MESSAGE_TAGS = {
     constants.INFO: 'alert-info',
 }
 
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = 'media/'
+print('----------------')
+print(MEDIA_ROOT)
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # try:
 #     from .local_settings import *

@@ -12,8 +12,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .forms import CustomUserChangeForm
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_protect
 
-
+@csrf_protect
 def login(request):
     if request.method != 'POST':
         return render(request, 'login.html')
@@ -37,7 +38,7 @@ def logout(request):
     # messages.success(request, 'Você fez logout com sucesso.')
     return redirect('/conta/login/')
 
-
+@csrf_protect
 def cadastro(request):
     if request.method != 'POST':
         return render(request, 'cadastro.html')
@@ -94,7 +95,7 @@ def excluir_animal(request, animal_id):
     animal.delete()
     return redirect('dashboard-animais')
 
-
+@csrf_protect
 @login_required
 def atualizarCadastro(request):
     if request.method == 'POST':
@@ -205,7 +206,7 @@ def dashboardAnimais(request):
     })
  """
 
-
+@csrf_protect
 @login_required(redirect_field_name='login')
 def dashboardAnimaisCadastrar(request):
     if request.method == 'POST':
@@ -223,7 +224,7 @@ def dashboardAnimaisCadastrar(request):
         form = FormCadastroAnimal()
     return render(request, 'cadastrar-animal.html', {'form': form})
 
-
+@csrf_protect
 @login_required(redirect_field_name='login')
 def dashboardAnimaisEditar(request, animal_id):
     animal = get_object_or_404(Animal, id=animal_id)

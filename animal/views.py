@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Q
 from datetime import date
+from django.views.decorators.csrf import csrf_protect
 
 
 """ class ListaAnimal(ListView):
@@ -60,7 +61,10 @@ def detalheAnimal(request, id_animal):
         idade -= 1
 
     if request.method != 'POST':
-        return render(request, 'animal/detalhe.html', {'animal': animal, 'idade': idade})
+        # link = 'https://web-production-a78f.up.railway.app/'
+        link = 'http://127.0.0.1:8000'
+
+        return render(request, 'animal/detalhe.html', {'animal': animal, 'idade': idade, 'link': link})
 
 
 class AdicionarAnimal(View):
@@ -83,6 +87,7 @@ class Finalizar(View):
         return HttpResponse('Finalizar')
 
 
+@csrf_protect
 def cadastroDeInteresse(request, nome, id):
     if request.method != 'POST':
         return render(request, 'interesse.html', {'nome': nome, 'id': id})

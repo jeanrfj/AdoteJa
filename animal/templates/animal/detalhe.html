@@ -10,9 +10,10 @@
     </style>
 </head>
 
-
 <div class="container p-5 bg-white">
+
     <div class="row justify-content-around" style="gap: 30px">
+
         <div class="col-8">
 
             {%if animal.imagem%}
@@ -27,24 +28,25 @@
         <div class="col d-flex flex-column justify-content-between pb-3 py-3"
             style="box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; border-radius: 1rem;">
             <h3 style="color: orange; display: block; " class="text-center"> <b> {{ animal.nome_animal }} </b></h3>
-            <div class=" rounded px-4 " style="color: #1669c1;">
+            <div class="rounded px-4" style="color: #1669c1;">
                 <b> Espécie: </b> {%if animal.especie == 'C'%}
                 Cachorro
                 {%else%}
                 Gato
                 {%endif%}
             </div>
-            <div class=" rounded px-4 " style="color: #1669c1;">
+            <div class="rounded px-4" style="color: #1669c1;">
                 <b>
                     Raça:</b> {{ animal.raca}}
             </div>
-            <div class=" rounded px-4 " style="color: #1669c1;">
+            <div class="rounded px-4" style="color: #1669c1;">
                 <b>
                     Idade:
                 </b> {{idade}}
             </div>
 
-            <div class=" rounded px-4 " style="color: #1669c1;">
+            <div class="rounded px-4" style="color: #1669c1;">
+
                 <b> Castrado: </b>
                 {%if animal.castrado == 'S'%}
                 Sim
@@ -53,12 +55,13 @@
                 {%endif%}
 
             </div>
-            <div class=" rounded px-4 " style="color: #1669c1;">
-                <b>
-                    Peso: </b>{{ animal.peso|floatformat:2|add:" kg" }}
+
+            <div class="rounded px-4" style="color: #1669c1;">
+
+                <b> Peso: </b>{{ animal.peso|floatformat:2|add:" kg" }}
             </div>
 
-            <div class=" rounded px-4 " style="color: #1669c1;">
+            <div class="rounded px-4" style="color: #1669c1;">
                 <b> Sexo: </b>
                 {%if animal.sexo == 'M'%}
                 Macho
@@ -67,11 +70,11 @@
                 {%endif%}
             </div>
 
-            <div class=" rounded px-4 " style="color: #1669c1;">
+            <div class="rounded px-4" style="color: #1669c1;">
                 <b> Cor: </b> {{ animal.cor}}
             </div>
 
-            <div class=" rounded px-4 " style="color: #1669c1;">
+            <div class="rounded px-4" style="color: #1669c1;">
                 <b> Porte: </b>
 
                 {%if animal.porte == 'P'%}
